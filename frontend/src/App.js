@@ -1,13 +1,22 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-
+import spongebobImage from "./assets/spongebob.png";
 function App() {
+  const maze = [
+    [1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1],
+  ];
+
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
 
-  const moveDistance = 100;
+  const moveDistance = 101.6;
   const moveDelay = 100;
 
   const animationFrame = useRef(null);
@@ -67,7 +76,39 @@ function App() {
 
   return (
     <div className="App">
-      <motion.div className="box" animate={{ x, y }} transition={{type:'tween'}}/>
+      <div className="maze">
+        <div class="rows">
+          {maze.map((row, rowIndex) => (
+            <div key={rowIndex} className="row">
+              {row.map((cell, cellIndex) => (
+                <div
+                  key={cellIndex}
+                  className={`cell ${cell === 0 ? "wall" : "path"} ${
+                    rowIndex === 0 && cellIndex === 0 ? "start" : ""
+                  }`}>
+                
+                  {rowIndex === 0 && cellIndex === 0 && (
+                      <motion.img
+                      initial={{ opacity: 0, scale: 0.5}}
+                      animate={{ opacity: 1, scale: 1, x:x, y:y}}
+                      transition={{ type: "tween"}}
+                      src={spongebobImage}
+                      alt="spongebob"
+                    />
+                    
+                      // <img src={spongebobImage} alt="spongebob" />
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* <motion.div
+          className="box"
+          animate={{ x, y }}
+          transition={{ type: "tween" }}
+        /> */}
     </div>
   );
 }
