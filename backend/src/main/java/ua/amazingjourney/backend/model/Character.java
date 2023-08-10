@@ -20,27 +20,27 @@ public class Character {
      * Moves character on 1 cell to the right
      */
     public void moveRight() {
-        xCoordinate++;
+        xCoordinate += 2;
     }
 
     /**
      * Moves character on 1 cell to the left
      */
     public void moveLeft() {
-        xCoordinate--;
+        xCoordinate += 2;
     }
 
     /**
      * Moves character on 1 cell up
      */
     public void moveUp() {
-        yCoordinate--;
+        yCoordinate += 2;
     }
 
     /**
      * Moves character on 1 cell down
      */
     public void moveDown() {
-        yCoordinate++;
+        yCoordinate += 2;
     }
 }
