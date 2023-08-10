@@ -8,7 +8,7 @@ function App() {
   const [isMoving, setIsMoving] = useState(false);
 
   const moveDistance = 100;
-  const moveDelay = 150;
+  const moveDelay = 100;
 
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
@@ -59,8 +59,6 @@ function App() {
 
       const animate = () => {
         animationFrame.current = requestAnimationFrame(animate);
-
-        // Update your animation logic here if needed
       };
 
       animate();
@@ -69,7 +67,7 @@ function App() {
 
   return (
     <div className="App">
-      <motion.div className="box" animate={{ x, y }} />
+      <motion.div className="box" animate={{ x, y }} transition={{type:'tween'}}/>
     </div>
   );
 }
