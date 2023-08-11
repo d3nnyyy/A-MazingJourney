@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.amazingjourney.backend.model.MazeInitializer;
 import ua.amazingjourney.backend.service.MazeService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/maze")
 @RequiredArgsConstructor
