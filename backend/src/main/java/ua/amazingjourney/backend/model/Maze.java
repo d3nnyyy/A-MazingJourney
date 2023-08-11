@@ -1,10 +1,12 @@
 package ua.amazingjourney.backend.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import static ua.amazingjourney.backend.tools.MazeGenerator.generateMaze;
 
 @Data
+@NoArgsConstructor
 public class Maze {
 
     /**
@@ -22,9 +24,11 @@ public class Maze {
      **/
 
     private boolean[][] grid;
+    private int size;
 
     public Maze(MazeInitializer mazeInitializer) {
         this.grid = generateMaze(mazeInitializer);
+        this.size = mazeInitializer.getSize();
     }
 
     public boolean isWall(int x, int y) {
