@@ -15,9 +15,9 @@ function App() {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [isMoving, setIsMoving] = useState(false);
-
+  const [playerPos, setPlayerPos] = useState([0, 0])
   const moveDistance = 101.6;
-  const moveDelay = 100;
+  const moveDelay = 125;
 
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
@@ -36,23 +36,31 @@ function App() {
       case "KeyW":
       case "ArrowUp":
         setY((prevY) => prevY - moveDistance);
+        setPlayerPos(playerPos => [playerPos[0],(playerPos[1]+1)])
         break;
       case "KeyS":
       case "ArrowDown":
         setY((prevY) => prevY + moveDistance);
+        setPlayerPos(playerPos => [playerPos[0],(playerPos[1]-1)])
         break;
       case "KeyA":
       case "ArrowLeft":
         setX((prevX) => prevX - moveDistance);
+        setPlayerPos(playerPos => [(playerPos[0]-1), playerPos[1]])
         break;
       case "KeyD":
       case "ArrowRight":
         setX((prevX) => prevX + moveDistance);
+        setPlayerPos(playerPos => [(playerPos[0]+1), playerPos[1]])
         break;
       default:
         break;
     }
   };
+
+  useEffect(() => {
+    console.log(playerPos)
+  }, [playerPos])
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
