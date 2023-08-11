@@ -42,15 +42,15 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
           break
         }
         setY((prevY) => prevY - moveDistanceRef.current);
-        setPlayerPos((playerPos) => [playerPos[0], playerPos[1] + 1]);
+        setPlayerPos((playerPos) => [playerPos[0], playerPos[1] - 1]);
         break;
       case "KeyS":
       case "ArrowDown":
-        if (playerPosRef.current[1] === -mazeRef.current.length+1){
+        if (playerPosRef.current[1] === mazeRef.current.length-1){
           break
         }
         setY((prevY) => prevY + moveDistanceRef.current);
-        setPlayerPos((playerPos) => [playerPos[0], playerPos[1] - 1]);
+        setPlayerPos((playerPos) => [playerPos[0], playerPos[1] + 1]);
         break;
       case "KeyA":
       case "ArrowLeft":
