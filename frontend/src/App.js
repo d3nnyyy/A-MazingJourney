@@ -6,6 +6,7 @@ import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 function App() {
+  const [playerPos, setPlayerPos] = useState([0, 0]);
   const [size, setSize] = useState(12);
   const [difficulty, setDifficulty] = useState(5);
   const [maze, setMaze] = useState()
@@ -23,6 +24,7 @@ function App() {
     setX(0)
     setY(0)
     setMoveDistance(600/res.data.length)
+    setPlayerPos([0, 0])
     })
     .catch(err => console.log(err))
   }
@@ -52,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <div className="app-container">
-        {maze ? <Maze moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
+        {maze ? <Maze playerPos={playerPos} setPlayerPos={setPlayerPos} moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
         <div className="input-container">
           <Box sx={{ width: "25vw" }}>
             <Box sx={{ display: "flex" }}>
