@@ -13,7 +13,30 @@
   align-items: center;
 }
 
-.maze {
+.vertical-line {
+  width: 1.75px;
+  height: 100px; 
+  background-color: black; 
+}
+
+.app-container {
+  display: flex;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10rem;
+}
+
+
+.horizontal-line {
+  width: 100px;
+  height: 1px; 
+  background-color: black; 
+}
+
+.maze-container {
   margin: 5rem;
   display: flex;
   align-items: center;
@@ -51,7 +74,7 @@
   background-color: white;
 }
 
-img {
+.img-spongebob {
   outline: 1px solid red;
   width: 50px;
   height: 50px;
