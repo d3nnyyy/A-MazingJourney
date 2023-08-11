@@ -1,0 +1,8 @@
+.logo {
+    width: 600px;
+    height: 600px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
