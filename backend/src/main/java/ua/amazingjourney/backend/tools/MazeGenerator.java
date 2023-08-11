@@ -11,8 +11,8 @@ public class MazeGenerator {
 
     public static boolean[][] generateMaze(MazeInitializer mazeInitializer) {
 
-        int width = mazeInitializer.getSize() * 2 + 1;
-        int height = mazeInitializer.getSize() * 2 + 1;
+        int width = mazeInitializer.getSize() * 2 - 1;
+        int height = mazeInitializer.getSize() * 2 - 1;
 
 
         int maxDifficulty = 10;
