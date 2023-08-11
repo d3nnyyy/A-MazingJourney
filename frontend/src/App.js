@@ -1,19 +1,31 @@
 import "./styles/App.css"
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Maze from "./Maze";
 import Logo from "./Logo"
 import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import axios from "axios";
 function App() {
-  // const maze = [
-  //   [false, true, false, false, false, false, false],
-  //   [false, true, true, true, false, true, false],
-  //   [false, false, false, false, false, true, false],
-  //   [true, true, true, true, true, true, false],
-  //   [false, false, false, false, false, false, false],
-  //   [false, true, true, true, true, true, true],
-  //   [false, false, false, false, false, false, false],
-  // ];
+  const [size, setSize] = useState(12);
+  const [difficulty, setDifficulty] = useState(5);
+  const [maze, setMaze] = useState()
+  const handleSizeChange = (event, value) => setSize(value);
+  const handleDifficultyChange = (event, value) => setDifficulty(value);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [moveDistance, setMoveDistance] = useState(0)
+  const handleSubmit = () => {
+    axios.post('http://localhost:8080/api/maze/generate', {
+      difficulty: difficulty,
+      size: size
+    })
+    .then(res => {setMaze(res.data)
+    setX(0)
+    setY(0)
+    setMoveDistance(600/res.data.length)
+    })
+    .catch(err => console.log(err))
+  }
   const sizeMarks = [
     {
       value: 10,
@@ -36,16 +48,11 @@ function App() {
     },
   ];
 
-  const [size, setSize] = useState(12);
-  const [difficulty, setDifficulty] = useState(5);
-  const [maze, setMaze] = useState()
-  const handleSizeChange = (event, value) => setSize(value);
-  const handleDifficultyChange = (event, value) => setDifficulty(value);
 
   return (
     <div className="App">
       <div className="app-container">
-        {maze ? <Maze maze={maze} /> : <Logo/>}
+        {maze ? <Maze moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
         <div className="input-container">
           <Box sx={{ width: "25vw" }}>
             <Box sx={{ display: "flex" }}>
@@ -102,7 +109,7 @@ function App() {
               color="secondary"
             />
           </Box>
-          <Button variant="contained" color="secondary" sx={{ ml: 15, mr: 15 }}>
+          <Button variant="contained" color="secondary" sx={{ ml: 15, mr: 15 }} onClick={handleSubmit}>
             Generate maze
           </Button>
         </div>
