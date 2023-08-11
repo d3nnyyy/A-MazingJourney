@@ -11,6 +11,11 @@ public class Cell {
     public int iCoordinate;
     public int jCoordinate;
 
+    public Cell(Cell another) {
+        this.iCoordinate = another.getICoordinate();
+        this.jCoordinate = another.getJCoordinate();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
