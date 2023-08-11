@@ -6,6 +6,7 @@ public class Game {
     private Maze maze;
     private Character character;
     private GoalPosition goalPosition;
+    //Size of a maze. The value must be odd
     private int size;
 
     private static final int COUNT_OF_CIRCLES = 5;
