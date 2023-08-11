@@ -7,7 +7,7 @@ public class MazeConverter {
 
         for (int i = 0; i < mazeArray.length; i++) {
             for (int j = 0; j < mazeArray[i].length; j++) {
-                if (mazeArray[i][j]) {
+                if (!mazeArray[i][j]) {
                     mazeString.append(" "); // Open path
                 } else {
                     mazeString.append("#"); // Wall

@@ -32,9 +32,9 @@ public class MazeGenerator {
         int alreadyErased = 0;
         Random randomGenerator = new Random();
 
-        while (alreadyErased != countOfCircles) {
-            int randomICoordinate = (randomGenerator.nextInt((maze.length - 1) / 2)) * 2;
-            int randomJCoordinate = (randomGenerator.nextInt((maze[0].length - 1) / 2)) * 2;
+        while (alreadyErased < countOfCircles) {
+            int randomICoordinate = randomGenerator.nextInt((height - 1) / 2) * 2 + 1;
+            int randomJCoordinate = randomGenerator.nextInt((width - 1) / 2) * 2 + 1;
             if (maze[randomICoordinate][randomJCoordinate]) {
                 alreadyErased++;
                 maze[randomICoordinate][randomJCoordinate] = false;
