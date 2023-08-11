@@ -1,34 +1,36 @@
 package ua.amazingjourney.backend.tools;
 
+import ua.amazingjourney.backend.model.MazeInitializer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class MazeGenerator {
-    private int width;
-    private int height;
 
-    private boolean[][] maze;
+    public static boolean[][] generateMaze(MazeInitializer mazeInitializer) {
 
-    public MazeGenerator(int width, int height) {
-        //WIDTH AND HEIGHT MUST BE ODD NUMBERS
-        this.width = width;
-        this.height = height;
-        maze = new boolean[height][width];
+        int width = mazeInitializer.getSize() * 2 + 1;
+        int height = mazeInitializer.getSize() * 2 + 1;
+
+
+        int maxDifficulty = 10;
+        int numberOfCircles = (maxDifficulty + 1 - mazeInitializer.getDifficulty()) * (mazeInitializer.getSize() / 4);
+
+        boolean[][] maze = new boolean[height][width];
+
         for (int i = 0; i < maze.length; i++) {
             Arrays.fill(maze[i], true);
         }
-    }
 
-    public boolean[][] generateMaze(int circlesInMaze) {
-        createTypicalMaze();
-        createCirclesInMaze(circlesInMaze);
+        createTypicalMaze(maze);
+        createCirclesInMaze(numberOfCircles, width, height, maze);
 
         return maze;
     }
 
-    private void createCirclesInMaze(int countOfCircles) {
+    private static void createCirclesInMaze(int countOfCircles, int width, int height, boolean[][] maze) {
         int alreadyErased = 0;
         Random randomGenerator = new Random();
 
@@ -43,7 +45,7 @@ public class MazeGenerator {
 
     }
 
-    private void createTypicalMaze() {
+    private static void createTypicalMaze(boolean[][] maze) {
         LinkedList<Cell> visitedCells = new LinkedList<>();
         Random randomGenerator = new Random();
         //We start from top-left corner
@@ -57,7 +59,7 @@ public class MazeGenerator {
             Cell currentCell = visitedCells.getFirst();
 
             //Defining accessible ways to pick from
-            ArrayList<Integer> possibleWays = getPossibleWays(currentCell);
+            ArrayList<Integer> possibleWays = getPossibleWays(currentCell, maze);
 
             if (!possibleWays.isEmpty()) {
 
@@ -85,14 +87,13 @@ public class MazeGenerator {
                         visitedCells.addFirst(new Cell(currentCell.iCoordinate, currentCell.jCoordinate - 2));
                     }
                 }
-            }
-            else {
+            } else {
                 visitedCells.pollFirst();
             }
         }
     }
 
-    private ArrayList<Integer> getPossibleWays(Cell currentCell) {
+    private static ArrayList<Integer> getPossibleWays(Cell currentCell, boolean[][] maze) {
         ArrayList<Integer> possibleWays = new ArrayList<>();
         if (currentCell.iCoordinate != 0
                 && maze[currentCell.iCoordinate - 2][currentCell.jCoordinate]) {
