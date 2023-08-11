@@ -1,14 +1,11 @@
 package ua.amazingjourney.backend.model;
 
 import lombok.Data;
-import ua.amazingjourney.backend.tools.MazeGenerator;
+
+import static ua.amazingjourney.backend.tools.MazeGenerator.generateMaze;
 
 @Data
 public class Maze {
-
-    private int width;
-    private int height;
-
 
     /**
      * Example of a maze:
@@ -21,23 +18,17 @@ public class Maze {
      * 01234567
      * Where 1 is a wall
      * As we can see, there are walls on odd rows and columns
-     * and blank spaces on even rows and columns
-     */
+     * while blank spaces on even rows and columns
+     **/
 
     private boolean[][] grid;
 
-    public Maze(int width, int height) {
-        this.width = width;
-        this.height = height;
-        grid = new boolean[height][width];
+    public Maze(MazeInitializer mazeInitializer) {
+        this.grid = generateMaze(mazeInitializer);
     }
 
     public boolean isWall(int x, int y) {
         return grid[y][x];
-    }
-
-    public void generateMaze(int countOfCircles) {
-        grid = (new MazeGenerator(width, height)).generateMaze(countOfCircles);
     }
 
 }

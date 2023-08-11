@@ -19,8 +19,6 @@ public class Game {
     }
 
     public void startNewGame() {
-        maze = new Maze(size, size);
-        maze.generateMaze(COUNT_OF_CIRCLES);
         character = new Character(DEFAULT_CHARACTER_COORDINATE, DEFAULT_CHARACTER_COORDINATE);
         //TODO: Do the rest
     }
