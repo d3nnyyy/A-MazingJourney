@@ -1,22 +1,9 @@
-.box {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  border: 3px solid #fe0222;
-  pointer-events: none;
-  margin: 5rem;
-  z-index: 999;
-}
-
 .App {
   display: flex;
   align-items: center;
-}
-
-.vertical-line {
-  width: 1.75px;
-  height: 100px; 
-  background-color: black; 
+  justify-content: center;
+  margin-top: 2rem;
+  
 }
 
 .app-container {
@@ -29,13 +16,6 @@
   margin: 10rem;
 }
 
-
-.horizontal-line {
-  width: 100px;
-  height: 1px; 
-  background-color: black; 
-}
-
 .maze-container {
   margin: 5rem;
   display: flex;
@@ -43,20 +23,12 @@
   justify-content: center;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 100px); /* Adjust the number of columns as needed */
-  gap: 1px;
-}
-
 .row {
   display: flex;
 }
 
 .cell {
-  width: 100px;
-  height: 100px;
-  border: 1px solid #ccc;
+  outline: 1px solid gray;
   background-color: #fff;
 }
 
@@ -76,8 +48,6 @@
 
 .img-spongebob {
   outline: 1px solid red;
-  width: 50px;
-  height: 50px;
   position: absolute;
   z-index: 999;
 }
