@@ -11,11 +11,17 @@ public class MazeGenerator {
 
     public static boolean[][] generateMaze(MazeInitializer mazeInitializer) {
 
+        //For secure reasons, size cannot be less than 1
+        if (mazeInitializer.getSize() < 1) {
+            mazeInitializer.setSize(1);
+        }
+
         int width = mazeInitializer.getSize() * 2 - 1;
         int height = mazeInitializer.getSize() * 2 - 1;
 
 
         int maxDifficulty = 10;
+        //Dunno what it does
         int numberOfCircles = (maxDifficulty + 1 - mazeInitializer.getDifficulty()) * (mazeInitializer.getSize() / 4);
 
         boolean[][] maze = new boolean[height][width];
