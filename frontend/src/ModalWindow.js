@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-function ModalWindow ({open, handleClose}) {
+function ModalWindow ({open, setOpenModal}) {
+  const handleClose = () => setOpenModal(false);
   const style = {
     position: 'absolute',
     top: '50%',
@@ -14,6 +14,7 @@ function ModalWindow ({open, handleClose}) {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    outline: 0
   };
     return (
         <Modal
@@ -33,3 +34,5 @@ function ModalWindow ({open, handleClose}) {
       </Modal>
     )
 }
+
+export default ModalWindow;

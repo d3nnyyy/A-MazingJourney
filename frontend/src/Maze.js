@@ -2,7 +2,8 @@ import "./styles/Maze.css";
 import { motion } from "framer-motion";
 import spongebobImage from "./assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
-function Maze({path, setPath, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
+import axios from "axios";
+function Maze({ setOpenModal, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
   const mazeRef = useRef(maze)
   useEffect(() => {
     mazeRef.current = maze;
@@ -28,6 +29,16 @@ function Maze({path, setPath, listenToEvents, setPlayerPos, playerPos, moveDista
   const playerPosRef = useRef(playerPos);
   useEffect(() => {
     playerPosRef.current = playerPos;
+    if (playerPosRef.current[0] === mazeRef.current.length - 1 && playerPosRef.current[1] === mazeRef.current.length - 1){
+      setDestinationReached(destinationReached => !destinationReached)
+      setListenToEvents(listenToEvents => !listenToEvents)
+      setOpenModal(true)
+      axios.post("http://localhost:8080/api/character/traveled-path", {
+        "visitedCells": path
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    }
   }, [playerPos]);
   const moveDelay = 125;
   const handleKeyPress = (event) => {
