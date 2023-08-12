@@ -49,6 +49,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>a-mazing-journey-backend</finalName>
     </build>
 
 </project>
