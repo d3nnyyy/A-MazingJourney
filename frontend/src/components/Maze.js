@@ -48,13 +48,12 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
     if (currentTime - lastKeyPressTime.current < moveDelay) {
       return;
     }
-
     lastKeyPressTime.current = currentTime;
     setIsMoving(true);
     switch (event.code) {
       case "KeyW":
       case "ArrowUp":
-        if (playerPosRef.current[1] === 0){
+        if (playerPosRef.current[1] === 0 || (mazeRef.current[playerPosRef.current[1]-1][playerPosRef.current[0]])){
           break
         }
         setY((prevY) => prevY - moveDistanceRef.current);
@@ -63,7 +62,7 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
         break;
       case "KeyS":
       case "ArrowDown":
-        if (playerPosRef.current[1] === mazeRef.current.length-1){
+        if ((playerPosRef.current[1] === mazeRef.current.length-1) || (mazeRef.current[playerPosRef.current[1]+1][playerPosRef.current[0]])){
           break
         }
         setY((prevY) => prevY + moveDistanceRef.current);
@@ -72,7 +71,7 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
         break;
       case "KeyA":
       case "ArrowLeft":
-        if (playerPosRef.current[0] === 0){
+        if (playerPosRef.current[0] === 0 || (mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0]-1])){
           break
         }
         setX((prevX) => prevX - moveDistanceRef.current);
@@ -81,7 +80,7 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
         break;
       case "KeyD":
       case "ArrowRight":
-        if (playerPosRef.current[0] === mazeRef.current.length-1){
+        if (playerPosRef.current[0] === mazeRef.current.length-1 || (mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0]+1])){
           break
         }
         setX((prevX) => prevX + moveDistanceRef.current);
