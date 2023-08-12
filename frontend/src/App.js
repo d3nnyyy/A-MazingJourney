@@ -32,7 +32,7 @@ function App() {
     .then(res => {setMaze(res.data)
     setX(0)
     setY(0)
-    setMoveDistance(600/res.data.length)
+    setMoveDistance(700/res.data.length)
     setPlayerPos([0, 0])
     })
     .catch(err => console.log(err))
@@ -68,7 +68,7 @@ function App() {
 
   return (
     <div className="App">
-      {destinationReached && <ModalWindow open={openModal} setOpenModal={setOpenModal}/>}
+      {destinationReached && <ModalWindow setMazeStarted={setMazeStarted} setDestinationReached={setDestinationReached} setPath={setPath} setPlayerPos={setPlayerPos} setX={setX} setY={setY} open={openModal} setOpenModal={setOpenModal}/>}
       <div className="app-container">
         {maze ? <Maze destinationReached={destinationReached} setOpenModal={setOpenModal} setDestinationReached={setDestinationReached} path={path} setPath={setPath} setListenToEvents={setListenToEvents} listenToEvents={listenToEvents} playerPos={playerPos} setPlayerPos={setPlayerPos} moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
         <div className='input-container'>
