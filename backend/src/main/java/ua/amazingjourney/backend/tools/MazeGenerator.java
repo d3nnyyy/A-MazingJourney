@@ -67,24 +67,24 @@ public class MazeGenerator {
 
                 switch (way) {
                     case 1 -> { //Go up
-                        maze[currentCell.iCoordinate - 1][currentCell.jCoordinate] = false;
-                        maze[currentCell.iCoordinate - 2][currentCell.jCoordinate] = false;
-                        visitedCells.addFirst(new Cell(currentCell.iCoordinate - 2, currentCell.jCoordinate));
+                        maze[currentCell.getICoordinate() - 1][currentCell.getJCoordinate()] = false;
+                        maze[currentCell.getICoordinate() - 2][currentCell.getJCoordinate()] = false;
+                        visitedCells.addFirst(new Cell(currentCell.getICoordinate() - 2, currentCell.getJCoordinate()));
                     }
                     case 2 -> { //Go right
-                        maze[currentCell.iCoordinate][currentCell.jCoordinate + 1] = false;
-                        maze[currentCell.iCoordinate][currentCell.jCoordinate + 2] = false;
-                        visitedCells.addFirst(new Cell(currentCell.iCoordinate, currentCell.jCoordinate + 2));
+                        maze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 1] = false;
+                        maze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 2] = false;
+                        visitedCells.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() + 2));
                     }
                     case 3 -> { //Go down
-                        maze[currentCell.iCoordinate + 1][currentCell.jCoordinate] = false;
-                        maze[currentCell.iCoordinate + 2][currentCell.jCoordinate] = false;
-                        visitedCells.addFirst(new Cell(currentCell.iCoordinate + 2, currentCell.jCoordinate));
+                        maze[currentCell.getICoordinate() + 1][currentCell.getJCoordinate()] = false;
+                        maze[currentCell.getICoordinate() + 2][currentCell.getJCoordinate()] = false;
+                        visitedCells.addFirst(new Cell(currentCell.getICoordinate() + 2, currentCell.getJCoordinate()));
                     }
                     case 4 -> { //Go left
-                        maze[currentCell.iCoordinate][currentCell.jCoordinate - 1] = false;
-                        maze[currentCell.iCoordinate][currentCell.jCoordinate - 2] = false;
-                        visitedCells.addFirst(new Cell(currentCell.iCoordinate, currentCell.jCoordinate - 2));
+                        maze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 1] = false;
+                        maze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 2] = false;
+                        visitedCells.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() - 2));
                     }
                 }
             } else {
@@ -95,20 +95,20 @@ public class MazeGenerator {
 
     private static ArrayList<Integer> getPossibleWays(Cell currentCell, boolean[][] maze) {
         ArrayList<Integer> possibleWays = new ArrayList<>();
-        if (currentCell.iCoordinate != 0
-                && maze[currentCell.iCoordinate - 2][currentCell.jCoordinate]) {
+        if (currentCell.getICoordinate() != 0
+                && maze[currentCell.getICoordinate() - 2][currentCell.getJCoordinate()]) {
             possibleWays.add(1);
         }
-        if (currentCell.jCoordinate != (maze[0].length - 1)
-                && maze[currentCell.iCoordinate][currentCell.jCoordinate + 2]) {
+        if (currentCell.getJCoordinate() != (maze[0].length - 1)
+                && maze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 2]) {
             possibleWays.add(2);
         }
-        if (currentCell.iCoordinate != (maze.length - 1)
-                && maze[currentCell.iCoordinate + 2][currentCell.jCoordinate]) {
+        if (currentCell.getICoordinate() != (maze.length - 1)
+                && maze[currentCell.getICoordinate() + 2][currentCell.getJCoordinate()]) {
             possibleWays.add(3);
         }
-        if (currentCell.jCoordinate != 0
-                && maze[currentCell.iCoordinate][currentCell.jCoordinate - 2]) {
+        if (currentCell.getJCoordinate() != 0
+                && maze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 2]) {
             possibleWays.add(4);
         }
         return possibleWays;
