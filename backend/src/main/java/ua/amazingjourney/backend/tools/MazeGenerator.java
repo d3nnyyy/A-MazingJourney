@@ -35,8 +35,21 @@ public class MazeGenerator {
         Random randomGenerator = new Random();
 
         while (alreadyErased < countOfCircles) {
-            int randomICoordinate = randomGenerator.nextInt((height - 1) / 2) * 2 + 1;
-            int randomJCoordinate = randomGenerator.nextInt((width - 1) / 2) * 2 + 1;
+
+            //We have to delete either even row and odd column or odd row an even column
+            int randomICoordinate, randomJCoordinate;
+
+            boolean isEvenRow = randomGenerator.nextBoolean();
+            if (isEvenRow) {
+                 randomICoordinate = randomGenerator.nextInt((height + 1) / 2) * 2;
+                 randomJCoordinate = (randomGenerator.nextInt((width - 1) / 2) * 2) + 1;
+            }
+            else {
+                randomICoordinate = (randomGenerator.nextInt((height - 1) / 2) * 2) + 1;
+                randomJCoordinate = randomGenerator.nextInt((width + 1) / 2) * 2;
+            }
+
+
             if (maze[randomICoordinate][randomJCoordinate]) {
                 alreadyErased++;
                 maze[randomICoordinate][randomJCoordinate] = false;
