@@ -1,8 +1,8 @@
 import "./styles/App.css"
 import { useState, useRef } from "react";
-import Maze from "./Maze";
-import Logo from "./Logo"
-import ModalWindow from "./ModalWindow";
+import Maze from "./components/Maze";
+import Logo from "./components/Logo"
+import ModalWindow from "./components/ModalWindow";
 import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
