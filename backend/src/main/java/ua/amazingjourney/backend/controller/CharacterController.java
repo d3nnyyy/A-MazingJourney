@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.amazingjourney.backend.model.CharacterMoveRequest;
+import ua.amazingjourney.backend.model.Character;
 import ua.amazingjourney.backend.service.CharacterService;
+import ua.amazingjourney.backend.tools.Cell;
+
+import java.util.LinkedList;
 
 @RequestMapping("/api/character")
 @RestController
@@ -15,9 +18,9 @@ public class CharacterController {
 
     private final CharacterService characterService;
 
-    @PostMapping("/move")
-    public String moveCharacter(@RequestBody CharacterMoveRequest request) {
-        return characterService.moveCharacter(request.getCharacter(), request.getMoveRequest());
+    @PostMapping("/traveled-path")
+    public LinkedList<Cell> getTraveledPath(@RequestBody Character character) {
+        return characterService.getTraveledPath(character);
     }
 
 }
