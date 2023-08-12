@@ -1,7 +1,6 @@
 package ua.amazingjourney.backend.model;
 
 import lombok.NoArgsConstructor;
-import ua.amazingjourney.backend.tools.*;
 
 
 import lombok.AllArgsConstructor;

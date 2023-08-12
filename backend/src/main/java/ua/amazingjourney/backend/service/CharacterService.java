@@ -2,7 +2,7 @@ package ua.amazingjourney.backend.service;
 
 import org.springframework.stereotype.Service;
 import ua.amazingjourney.backend.model.TraveledPathRequest;
-import ua.amazingjourney.backend.tools.Cell;
+import ua.amazingjourney.backend.model.Cell;
 
 import java.util.LinkedList;
 
