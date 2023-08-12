@@ -5,6 +5,9 @@ import ua.amazingjourney.backend.model.Maze;
 
 import java.util.LinkedList;
 
+/**
+ * A class, that has static methods, which solve maze
+ */
 public class MazeSolver {
 
     /**
@@ -16,6 +19,7 @@ public class MazeSolver {
      */
     public static LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Cell startingPosition) {
 
+        //Calculating actual size of a maze array
         int width = maze.getSize() * 2 - 1;
         int height = maze.getSize() * 2 - 1;
 
@@ -23,9 +27,10 @@ public class MazeSolver {
         //And later we can go back to the start
         int[][] solvingMaze = new int[height][width];
 
-        //boolean[][] mazeOld = new boolean[maze.getSize()][maze.getSize()];
-
+        //Filling integer array
         fillNewMaze(solvingMaze, maze.getGrid());
+
+        //Filling array with distances to beginning until we reach the goal
         goToGoalPosition(goalPosition, startingPosition, solvingMaze);
 
         //Now we make the list that is the way to the goal
@@ -34,15 +39,31 @@ public class MazeSolver {
         return pathToTheGoal;
     }
 
+    /**
+     * Finds the shortest path to the goal, using array with distances to beginning
+     * @param goalPosition cell with goal coordinates
+     * @param startingPosition cell with starting coordinates
+     * @param solvingMaze array with filled distances to the start
+     * @return linked list of cells in order from start to goal - the shortest path
+     */
     private static LinkedList<Cell> findPathToTheGoal(Cell goalPosition, Cell startingPosition, int[][] solvingMaze) {
+        //Creating the path
         LinkedList<Cell> pathToTheGoal = new LinkedList<>();
+
+        //Now we start from the goal cell
         pathToTheGoal.addFirst(new Cell(goalPosition));
+
+        //While we don't get to start
         while (!pathToTheGoal.getFirst().equals(startingPosition)) {
+
             Cell currentCell = pathToTheGoal.getFirst();
+
+            //If we got to start
             if (currentCell.equals(startingPosition)) {
                 break;
             }
 
+            //Choosing the next cell to go to
             int way = chooseWayToGo(solvingMaze, currentCell);
 
             switch (way) {
@@ -57,10 +78,18 @@ public class MazeSolver {
             }
 
         }
+
         return pathToTheGoal;
     }
 
+    /**
+     * Finds the way to go from the current cell
+     * @param solvingMaze maze to find the way in
+     * @param currentCell cell from which we will find the next cell
+     * @return 1 is up, 2 is right, 3 is down, 4 is left
+     */
     private static int chooseWayToGo(int[][] solvingMaze, Cell currentCell) {
+        //We are finding the shortest distance from current cell to the start
         int lowest = solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()];
         int way = 0;
 
@@ -94,9 +123,14 @@ public class MazeSolver {
         }
 
         return way;
-
     }
 
+    /**
+     * Fills an array with distances from each cell to the start until we reach the goal cell
+     * @param goalPosition cell to reach
+     * @param startingPosition cell to start from
+     * @param solvingMaze maze to fill
+     */
     private static void goToGoalPosition(Cell goalPosition, Cell startingPosition, int[][] solvingMaze) {
         LinkedList<Cell> queueOfLastCells = new LinkedList<>();
 
@@ -108,8 +142,10 @@ public class MazeSolver {
         //Then we go through all the elements in a queue until we reach the goal position
         while (!reachedGoal) {
 
+            //We save current last cells so that we won't delete them from this list in the loop
             LinkedList<Cell> savedLastCells = new LinkedList<>(queueOfLastCells);
 
+            //We are going through all the current cells
             for (Cell cell: savedLastCells) {
 
                 //We check if we got to the goal
@@ -145,6 +181,11 @@ public class MazeSolver {
         }
     }
 
+    /**
+     * Fills the integer array depending on the boolean array, where 0 is blank space and -1 is a wall
+     * @param solvingMaze integer array to fill
+     * @param mazeOld boolean array to depend on
+     */
     private static void fillNewMaze(int[][] solvingMaze, boolean[][] mazeOld) {
         // -1 is a wall, 0 is a blank thing (at first)
         for (int i = 0; i < solvingMaze.length; i++) {
