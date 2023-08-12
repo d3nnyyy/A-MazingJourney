@@ -7,9 +7,9 @@ import java.util.LinkedList;
 
 public class MazeSolver {
 
-    public LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Character character) {
-        return solveMazeBFS(maze, goalPosition, new Cell(character.getYCoordinate(), character.getXCoordinate()));
-    }
+//    public LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Character character) {
+//        return solveMazeBFS(maze, goalPosition, new Cell(character.getYCoordinate(), character.getXCoordinate()));
+//    }
 
     public LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Cell startingPosition) {
         //Maze in progress of solving. It is integer, so that we can mark distance from each point to beginning
