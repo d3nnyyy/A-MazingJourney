@@ -1,16 +1,18 @@
 package ua.amazingjourney.backend.tools;
 
-import ua.amazingjourney.backend.model.Character;
 import ua.amazingjourney.backend.model.Maze;
 
 import java.util.LinkedList;
 
 public class MazeSolver {
 
-//    public LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Character character) {
-//        return solveMazeBFS(maze, goalPosition, new Cell(character.getYCoordinate(), character.getXCoordinate()));
-//    }
-
+    /**
+     * Solves maze using BFS algorithm
+     * @param maze maze to solve
+     * @param goalPosition position to get to
+     * @param startingPosition position to start from
+     * @return the list of cells. Starting from beginning to goal position
+     */
     public LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Cell startingPosition) {
         //Maze in progress of solving. It is integer, so that we can mark distance from each point to beginning
         //And later we can go back to the start
@@ -18,18 +20,52 @@ public class MazeSolver {
 
         boolean[][] mazeOld = new boolean[maze.getSize()][maze.getSize()];
 
-        // -1 is a wall, 0 is a blank thing (at first)
-        for (int i = 0; i < solvingMaze.length; i++) {
-            for (int j = 0; j < solvingMaze[0].length; j++) {
-                if (!mazeOld[i][j]) {
-                    solvingMaze[i][j] = 0;
-                }
-                else {
-                    solvingMaze[i][j] = -1;
-                }
+        fillNewMaze(solvingMaze, mazeOld);
+        goToGoalPosition(goalPosition, startingPosition, solvingMaze);
+
+        //Now we make the list that is the way to the goal
+        LinkedList<Cell> pathToTheGoal = findPathToTheGoal(goalPosition, startingPosition, solvingMaze);
+
+        return pathToTheGoal;
+    }
+
+    private static LinkedList<Cell> findPathToTheGoal(Cell goalPosition, Cell startingPosition, int[][] solvingMaze) {
+        LinkedList<Cell> pathToTheGoal = new LinkedList<>();
+        pathToTheGoal.addFirst(new Cell(goalPosition));
+        while (!pathToTheGoal.getFirst().equals(startingPosition)) {
+            Cell currentCell = pathToTheGoal.getFirst();
+            if (currentCell.equals(startingPosition)) {
+                break;
+            }
+            //Go left
+            if (currentCell.getJCoordinate() != 0
+                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 1] > 0
+                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 1] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
+                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() - 1));
+            }
+            //Go down
+            else if (currentCell.getICoordinate() != solvingMaze[0].length - 1
+                    && solvingMaze[currentCell.getICoordinate() + 1][currentCell.getJCoordinate()] > 0
+                    && solvingMaze[currentCell.getICoordinate() + 1][currentCell.getJCoordinate()] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
+                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate() + 1, currentCell.getJCoordinate()));
+            }
+            //Go right
+            else if (currentCell.getJCoordinate() != solvingMaze[0].length - 1
+                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 1] > 0
+                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 1] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
+                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() + 1));
+            }
+            //Go up
+            else if (currentCell.getICoordinate() != 0
+                    && solvingMaze[currentCell.getICoordinate() - 1][currentCell.getJCoordinate()] > 0
+                    && solvingMaze[currentCell.getICoordinate() - 1][currentCell.getJCoordinate()] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
+                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate() - 1, currentCell.getJCoordinate()));
             }
         }
+        return pathToTheGoal;
+    }
 
+    private static void goToGoalPosition(Cell goalPosition, Cell startingPosition, int[][] solvingMaze) {
         LinkedList<Cell> queueOfLastCells = new LinkedList<>();
 
         //We start from first cell - starting position
@@ -75,45 +111,20 @@ public class MazeSolver {
                 queueOfLastCells.remove(cell);
             }
         }
+    }
 
-
-        //Now we make the list that is the way to the goal
-
-        LinkedList<Cell> pathToTheGoal = new LinkedList<>();
-        pathToTheGoal.addFirst(new Cell(goalPosition));
-        while (!pathToTheGoal.getFirst().equals(startingPosition)) {
-            Cell currentCell = pathToTheGoal.getFirst();
-            if (currentCell.equals(startingPosition)) {
-                break;
-            }
-            //Go left
-            if (currentCell.getJCoordinate() != 0
-                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 1] > 0
-                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() - 1] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
-                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() - 1));
-            }
-            //Go down
-            else if (currentCell.getICoordinate() != solvingMaze[0].length - 1
-                    && solvingMaze[currentCell.getICoordinate() + 1][currentCell.getJCoordinate()] > 0
-                    && solvingMaze[currentCell.getICoordinate() + 1][currentCell.getJCoordinate()] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
-                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate() + 1, currentCell.getJCoordinate()));
-            }
-            //Go right
-            else if (currentCell.getJCoordinate() != solvingMaze[0].length - 1
-                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 1] > 0
-                    && solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate() + 1] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
-                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() + 1));
-            }
-            //Go up
-            else if (currentCell.getICoordinate() != 0
-                    && solvingMaze[currentCell.getICoordinate() - 1][currentCell.getJCoordinate()] > 0
-                    && solvingMaze[currentCell.getICoordinate() - 1][currentCell.getJCoordinate()] < solvingMaze[currentCell.getICoordinate()][currentCell.getJCoordinate()]) {
-                pathToTheGoal.addFirst(new Cell(currentCell.getICoordinate() - 1, currentCell.getJCoordinate()));
+    private static void fillNewMaze(int[][] solvingMaze, boolean[][] mazeOld) {
+        // -1 is a wall, 0 is a blank thing (at first)
+        for (int i = 0; i < solvingMaze.length; i++) {
+            for (int j = 0; j < solvingMaze[0].length; j++) {
+                if (!mazeOld[i][j]) {
+                    solvingMaze[i][j] = 0;
+                }
+                else {
+                    solvingMaze[i][j] = -1;
+                }
             }
         }
-
-
-        return pathToTheGoal;
     }
 
 }
