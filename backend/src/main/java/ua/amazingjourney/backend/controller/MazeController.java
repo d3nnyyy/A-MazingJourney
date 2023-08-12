@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.amazingjourney.backend.model.MazeInitializer;
 import ua.amazingjourney.backend.service.MazeService;
 
+import java.util.LinkedList;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/maze")
@@ -18,4 +20,8 @@ public class MazeController {
         return mazeService.generateMaze(mazeInitializer);
     }
 
+    @GetMapping("/shortest-path")
+    public LinkedList<LinkedList<Integer>> getShortestPath() {
+        return mazeService.getShortestPath();
+    }
 }
