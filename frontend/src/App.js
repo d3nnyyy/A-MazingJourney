@@ -39,8 +39,8 @@ function App() {
   }
   const sizeMarks = [
     {
-      value: 10,
-      label: "10",
+      value: 4,
+      label: "4",
     },
     {
       value: 15,
@@ -89,8 +89,8 @@ function App() {
             </Box>
 
             <Slider
-              defaultValue={12}
-              min={10}
+              defaultValue={5}
+              min={4}
               max={15}
               step={1}
               marks={sizeMarks}
