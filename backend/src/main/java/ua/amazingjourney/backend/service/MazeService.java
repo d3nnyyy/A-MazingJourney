@@ -2,9 +2,10 @@ package ua.amazingjourney.backend.service;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
+import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.model.Maze;
 import ua.amazingjourney.backend.model.MazeInitializer;
-import ua.amazingjourney.backend.model.Cell;
+import ua.amazingjourney.backend.model.TraveledPathRequest;
 import ua.amazingjourney.backend.tools.MazeGenerator;
 import ua.amazingjourney.backend.tools.MazeSolver;
 
@@ -38,5 +39,15 @@ public class MazeService {
             solvedLinkedListOfLinkedLists.add(solvedLinkedList);
         }
         return solvedLinkedListOfLinkedLists;
+    }
+
+    public Double getStats(TraveledPathRequest traveledPathRequest) {
+
+        LinkedList<LinkedList<Integer>> traveledPath = traveledPathRequest.getVisitedCells();
+
+        int traveledPathLength = traveledPath.size();
+        int shortestPathLength = getShortestPath().size();
+
+        return (double) (traveledPathLength / shortestPathLength * 100);
     }
 }
