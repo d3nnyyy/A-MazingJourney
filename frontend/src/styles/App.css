@@ -16,3 +16,7 @@
   margin: 10rem;
 }
 
+.regenerate-start-container {
+  display: flex;
+  flex-direction: column;
+}

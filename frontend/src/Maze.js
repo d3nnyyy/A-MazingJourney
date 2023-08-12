@@ -2,7 +2,7 @@ import "./styles/Maze.css";
 import { motion } from "framer-motion";
 import spongebobImage from "./assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
-function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
+function Maze({path, setPath, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
   const mazeRef = useRef(maze)
   useEffect(() => {
     mazeRef.current = maze;
@@ -12,13 +12,16 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
     moveDistanceRef.current = moveDistance;
   }, [moveDistance]);
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
-
+    if (listenToEvents) {
+      window.addEventListener("keydown", handleKeyPress);
+    }
+  
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      if (listenToEvents) {
+        window.removeEventListener("keydown", handleKeyPress);
+      }
     };
-    //eslint-disable-next-line
-  }, []);
+  }, [listenToEvents]);
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
   const [isMoving, setIsMoving] = useState(false);
@@ -43,6 +46,7 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
         }
         setY((prevY) => prevY - moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0], playerPos[1] - 1]);
+        setPath(path => [...path, [playerPosRef.current[0], playerPosRef.current[1]-1]])
         break;
       case "KeyS":
       case "ArrowDown":
@@ -51,6 +55,7 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
         }
         setY((prevY) => prevY + moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0], playerPos[1] + 1]);
+        setPath(path => [...path, [playerPosRef.current[0], playerPosRef.current[1]+1]])
         break;
       case "KeyA":
       case "ArrowLeft":
@@ -59,6 +64,7 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
         }
         setX((prevX) => prevX - moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0] - 1, playerPos[1]]);
+        setPath(path => [...path, [playerPosRef.current[0]-1, playerPosRef.current[1]]])
         break;
       case "KeyD":
       case "ArrowRight":
@@ -67,11 +73,11 @@ function Maze({setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) 
         }
         setX((prevX) => prevX + moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0] + 1, playerPos[1]]);
+        setPath(path => [...path, [playerPosRef.current[0]+1, playerPosRef.current[1]]])
         break;
       default:
         break;
     }
-    console.log(playerPosRef.current)
   };
   // useEffect(() => {
   //   console.log(playerPos);
