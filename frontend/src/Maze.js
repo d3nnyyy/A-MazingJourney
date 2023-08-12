@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import spongebobImage from "./assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-function Maze({ setOpenModal, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
+function Maze({ setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
   const mazeRef = useRef(maze)
   useEffect(() => {
     mazeRef.current = maze;
@@ -22,6 +22,7 @@ function Maze({ setOpenModal, setDestinationReached, path, setPath, setListenToE
         window.removeEventListener("keydown", handleKeyPress);
       }
     };
+    // eslint-disable-next-line
   }, [listenToEvents]);
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
@@ -39,6 +40,7 @@ function Maze({ setOpenModal, setDestinationReached, path, setPath, setListenToE
       .then(res => console.log(res))
       .catch(err => console.log(err))
     }
+    // eslint-disable-next-line
   }, [playerPos]);
   const moveDelay = 125;
   const handleKeyPress = (event) => {
@@ -105,8 +107,8 @@ function Maze({ setOpenModal, setDestinationReached, path, setPath, setListenToE
     }
   }, [isMoving]);
   return (
-    <div className="maze-container">
-      <div class="rows">
+    <div className={`maze-container ${destinationReached ? '' : ''}`}>
+      <div className="rows">
         {maze.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((cell, cellIndex) => (

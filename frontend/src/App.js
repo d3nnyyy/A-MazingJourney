@@ -70,9 +70,9 @@ function App() {
     <div className="App">
       {destinationReached && <ModalWindow open={openModal} setOpenModal={setOpenModal}/>}
       <div className="app-container">
-        {maze ? <Maze setOpenModal={setOpenModal} setDestinationReached={setDestinationReached} path={path} setPath={setPath} setListenToEvents={setListenToEvents} listenToEvents={listenToEvents} playerPos={playerPos} setPlayerPos={setPlayerPos} moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
-        <div className="input-container">
-          <Box sx={{ width: "25vw" }}>
+        {maze ? <Maze destinationReached={destinationReached} setOpenModal={setOpenModal} setDestinationReached={setDestinationReached} path={path} setPath={setPath} setListenToEvents={setListenToEvents} listenToEvents={listenToEvents} playerPos={playerPos} setPlayerPos={setPlayerPos} moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
+        <div className='input-container'>
+          <Box sx={mazeStarted ? {display: "none"} : {display:"block", width: "25vw" }}>
             <Box sx={{ display: "flex" }}>
               <Typography>Choose the size of the maze:</Typography>
               <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
@@ -130,7 +130,7 @@ function App() {
           {maze ? (!mazeStarted ? <div className="regenerate-start-container">
             <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={handleSubmit}>Regenerate</Button>
             <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={() => {setListenToEvents(listenToEvents => !listenToEvents); setMazeStarted(mazeStarted => !mazeStarted)}}>Start</Button>
-          </div> : <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={() => {setX(0); setY(0); setPlayerPos([0, 0]); setPath([]); setListenToEvents(true)}}>Reset</Button>) :<Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={handleSubmit}>
+          </div> : <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={() => {setX(0); setY(0); setPlayerPos([0, 0]); setPath([]); setListenToEvents(true); setDestinationReached(false)}}>Reset</Button>) :<Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={handleSubmit}>
             Generate maze
           </Button>}
         </div>
