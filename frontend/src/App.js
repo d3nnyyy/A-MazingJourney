@@ -1,43 +1,45 @@
-import "./styles/App.css"
+import "./styles/App.css";
 import { useState, useRef } from "react";
 import Maze from "./components/Maze";
-import Logo from "./components/Logo"
+import Logo from "./components/Logo";
+import { motion } from "framer-motion";
 import ModalWindow from "./components/ModalWindow";
 import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 function App() {
-  const [path, setPath] = useState([])
-  const pathRef = useRef(path)
-  const [openModal, setOpenModal] = useState(false)
-  const [mazeStarted, setMazeStarted] = useState(false)
-  const [destinationReached, setDestinationReached] = useState(false)
-  const [listenToEvents, setListenToEvents] = useState(false)
+  const [path, setPath] = useState([]);
+  const pathRef = useRef(path);
+  const [openModal, setOpenModal] = useState(false);
+  const [mazeStarted, setMazeStarted] = useState(false);
+  const [destinationReached, setDestinationReached] = useState(false);
+  const [listenToEvents, setListenToEvents] = useState(false);
   const [playerPos, setPlayerPos] = useState([0, 0]);
   const [size, setSize] = useState(12);
   const [difficulty, setDifficulty] = useState(5);
-  const [maze, setMaze] = useState()
+  const [maze, setMaze] = useState();
   const handleSizeChange = (event, value) => setSize(value);
   const handleDifficultyChange = (event, value) => setDifficulty(value);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [moveDistance, setMoveDistance] = useState(0)
+  const [moveDistance, setMoveDistance] = useState(0);
   const handleClose = () => setOpenModal(false);
 
-    const handleSubmit = () => {
-    axios.post('http://localhost:8080/api/maze/generate', {
-      difficulty: difficulty,
-      size: size
-    })
-    .then(res => {
-    setMaze(res.data.maze)
-    setX(0)
-    setY(0)
-    setMoveDistance(700/res.data.maze.length)
-    setPlayerPos([0, 0])
-    })
-    .catch(err => console.log(err))
-  }
+  const handleSubmit = () => {
+    axios
+      .post("http://localhost:8080/api/maze/generate", {
+        difficulty: difficulty,
+        size: size,
+      })
+      .then((res) => {
+        setMaze(res.data.maze);
+        setX(0);
+        setY(0);
+        setMoveDistance(700 / res.data.maze.length);
+        setPlayerPos([0, 0]);
+      })
+      .catch((err) => console.log(err));
+  };
   const sizeMarks = [
     {
       value: 4,
@@ -65,15 +67,50 @@ function App() {
   //   console.log(pathRef.current)
   // }, [path])
 
-
-
   return (
     <div className="App">
-      {destinationReached && <ModalWindow setMazeStarted={setMazeStarted} setDestinationReached={setDestinationReached} setPath={setPath} setPlayerPos={setPlayerPos} setX={setX} setY={setY} open={openModal} setOpenModal={setOpenModal}/>}
+      {destinationReached && (
+        <ModalWindow
+          setMazeStarted={setMazeStarted}
+          setDestinationReached={setDestinationReached}
+          setPath={setPath}
+          setPlayerPos={setPlayerPos}
+          setX={setX}
+          setY={setY}
+          open={openModal}
+          setOpenModal={setOpenModal}
+        />
+      )}
       <div className="app-container">
-        {maze ? <Maze destinationReached={destinationReached} setOpenModal={setOpenModal} setDestinationReached={setDestinationReached} path={path} setPath={setPath} setListenToEvents={setListenToEvents} listenToEvents={listenToEvents} playerPos={playerPos} setPlayerPos={setPlayerPos} moveDistance={moveDistance} maze={maze} x={x} y={y} setX = {setX} setY = {setY} /> : <Logo/>}
-        <div className='input-container'>
-          <Box sx={mazeStarted ? {display: "none"} : {display:"block", width: "25vw" }}>
+        {maze ? (
+          <Maze
+            destinationReached={destinationReached}
+            setOpenModal={setOpenModal}
+            setDestinationReached={setDestinationReached}
+            path={path}
+            setPath={setPath}
+            setListenToEvents={setListenToEvents}
+            listenToEvents={listenToEvents}
+            playerPos={playerPos}
+            setPlayerPos={setPlayerPos}
+            moveDistance={moveDistance}
+            maze={maze}
+            x={x}
+            y={y}
+            setX={setX}
+            setY={setY}
+          />
+        ) : (
+          <Logo />
+        )}
+        <div className="input-container">
+          <Box
+            sx={
+              mazeStarted
+                ? { display: "none" }
+                : { display: "block", width: "25vw" }
+            }
+          >
             <Box sx={{ display: "flex" }}>
               <Typography>Choose the size of the maze:</Typography>
               <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
@@ -128,12 +165,78 @@ function App() {
               color="secondary"
             />
           </Box>
-          {maze ? (!mazeStarted ? <div className="regenerate-start-container">
-            <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={handleSubmit}>Regenerate</Button>
-            <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={() => {setListenToEvents(listenToEvents => !listenToEvents); setMazeStarted(mazeStarted => !mazeStarted)}}>Start</Button>
-          </div> : <Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={() => {setX(0); setY(0); setPlayerPos([0, 0]); setPath([]); setListenToEvents(true); setDestinationReached(false)}}>Reset</Button>) :<Button variant="contained" color="secondary" sx={{ m: 3 }} onClick={handleSubmit}>
-            Generate maze
-          </Button>}
+          {maze ? (
+            !mazeStarted ? (
+              <div className="regenerate-start-container">
+                <motion.div
+                  initial={{ opacity: 0.5, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ m: 3 }}
+                    onClick={handleSubmit}
+                  >
+                    Regenerate
+                  </Button>
+                </motion.div>
+                <motion.div
+                initial={{ opacity: 0.5, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ m: 3 }}
+                    onClick={() => {
+                      setListenToEvents((listenToEvents) => !listenToEvents);
+                      setMazeStarted((mazeStarted) => !mazeStarted);
+                    }}
+                  >
+                    Start
+                  </Button>
+                </motion.div>
+              </div>
+            ) : (
+              <motion.div
+              initial={{ opacity: 0.5, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              >
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ m: 3 }}
+                  onClick={() => {
+                    setX(0);
+                    setY(0);
+                    setPlayerPos([0, 0]);
+                    setPath([]);
+                    setListenToEvents(true);
+                    setDestinationReached(false);
+                  }}
+                >
+                  Reset
+                </Button>
+              </motion.div>
+            )
+          ) : (
+            <motion.div
+            initial={{ opacity: 0.5, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25 }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ m: 3 }}
+                onClick={handleSubmit}
+              >
+                Generate maze
+              </Button>
+            </motion.div>
+          )}
         </div>
       </div>
     </div>
