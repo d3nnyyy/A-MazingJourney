@@ -42,7 +42,7 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
     }
     // eslint-disable-next-line
   }, [playerPos]);
-  const moveDelay = 125;
+  const moveDelay = 25;
   const handleKeyPress = (event) => {
     const currentTime = Date.now();
     if (currentTime - lastKeyPressTime.current < moveDelay) {
