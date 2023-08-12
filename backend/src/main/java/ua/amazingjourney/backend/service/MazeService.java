@@ -28,7 +28,7 @@ public class MazeService {
 
     public LinkedList<LinkedList<Integer>> getShortestPath() {
 
-        LinkedList<Cell> solvedLinkedListOfCells = MazeSolver.solveMazeBFS(maze, new Cell(0, 0), new Cell(maze.getSize() - 1, maze.getSize() - 1));
+        LinkedList<Cell> solvedLinkedListOfCells = MazeSolver.solveMazeBFS(maze, new Cell(0, 0), new Cell(maze.getSize() * 2 - 2, maze.getSize() * 2 - 2));
         LinkedList<LinkedList<Integer>> solvedLinkedListOfLinkedLists = new LinkedList<>();
 
         for (Cell cell : solvedLinkedListOfCells) {
