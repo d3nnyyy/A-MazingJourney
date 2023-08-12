@@ -1,4 +1,4 @@
-package ua.amazingjourney.backend.tools;
+package ua.amazingjourney.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -31,5 +31,13 @@ public class Cell {
     @Override
     public int hashCode() {
         return Objects.hash(iCoordinate, jCoordinate);
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "iCoordinate=" + iCoordinate +
+                ", jCoordinate=" + jCoordinate +
+                '}';
     }
 }

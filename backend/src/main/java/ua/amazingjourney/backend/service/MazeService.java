@@ -4,7 +4,11 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ua.amazingjourney.backend.model.Maze;
 import ua.amazingjourney.backend.model.MazeInitializer;
+import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.tools.MazeGenerator;
+import ua.amazingjourney.backend.tools.MazeSolver;
+
+import java.util.LinkedList;
 
 @Service
 @Getter
@@ -22,4 +26,17 @@ public class MazeService {
         return MazeGenerator.generateMaze(mazeInitializer);
     }
 
+    public LinkedList<LinkedList<Integer>> getShortestPath() {
+
+        LinkedList<Cell> solvedLinkedListOfCells = MazeSolver.solveMazeBFS(maze, new Cell(0, 0), new Cell(maze.getSize() * 2 - 2, maze.getSize() * 2 - 2));
+        LinkedList<LinkedList<Integer>> solvedLinkedListOfLinkedLists = new LinkedList<>();
+
+        for (Cell cell : solvedLinkedListOfCells) {
+            LinkedList<Integer> solvedLinkedList = new LinkedList<>();
+            solvedLinkedList.add(cell.getICoordinate());
+            solvedLinkedList.add(cell.getJCoordinate());
+            solvedLinkedListOfLinkedLists.add(solvedLinkedList);
+        }
+        return solvedLinkedListOfLinkedLists;
+    }
 }
