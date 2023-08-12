@@ -1,6 +1,6 @@
-import "./styles/Maze.css";
+import "../styles/Maze.css";
 import { motion } from "framer-motion";
-import spongebobImage from "./assets/spongebob.png";
+import spongebobImage from "../assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 function Maze({ setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
