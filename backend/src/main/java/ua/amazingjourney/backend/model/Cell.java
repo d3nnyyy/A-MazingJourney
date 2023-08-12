@@ -1,4 +1,4 @@
-package ua.amazingjourney.backend.tools;
+package ua.amazingjourney.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ua.amazingjourney.backend.model.TraveledPathRequest;
 import ua.amazingjourney.backend.service.CharacterService;
-import ua.amazingjourney.backend.tools.Cell;
+import ua.amazingjourney.backend.model.Cell;
 
 import java.util.LinkedList;
 

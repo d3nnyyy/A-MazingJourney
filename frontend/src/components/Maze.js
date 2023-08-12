@@ -113,8 +113,8 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
             {row.map((cell, cellIndex) => (
               <div
                 style={{
-                  width: `${600 / maze.length}px`,
-                  height: `${600 / maze.length}px`,
+                  width: `${700 / maze.length}px`,
+                  height: `${700 / maze.length}px`,
                 }}
                 key={cellIndex}
                 className={`cell ${cell === true ? "wall" : "path"} ${
@@ -124,8 +124,8 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
                     style={{
-                      width: `${300 / maze.length}px`,
-                      height: `${300 / maze.length}px`,
+                      width: `${350 / maze.length}px`,
+                      height: `${350 / maze.length}px`,
                     }}
                     className="img-spongebob"
                     initial={{ opacity: 0, scale: 0.5 }}

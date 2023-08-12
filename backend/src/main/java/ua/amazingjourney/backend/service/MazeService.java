@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ua.amazingjourney.backend.model.Maze;
 import ua.amazingjourney.backend.model.MazeInitializer;
-import ua.amazingjourney.backend.tools.Cell;
+import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.tools.MazeGenerator;
 import ua.amazingjourney.backend.tools.MazeSolver;
 

@@ -1,5 +1,6 @@
 package ua.amazingjourney.backend.tools;
 
+import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.model.Maze;
 
 import java.util.LinkedList;

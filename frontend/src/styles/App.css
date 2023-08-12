@@ -2,18 +2,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
-  
 }
 
 .app-container {
   display: flex;
+  flex-direction: column-reverse;
 }
 
 .input-container {
   display: flex;
   flex-direction: column;
-  margin: 10rem;
+  /* margin: 10rem; */
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 .hidden {
@@ -22,5 +26,4 @@
 
 .regenerate-start-container {
   display: flex;
-  flex-direction: column;
 }
