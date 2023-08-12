@@ -17,12 +17,12 @@ public class Game {
 
 
     public void startNewGame() {
-        character = new Character(DEFAULT_CHARACTER_COORDINATE, DEFAULT_CHARACTER_COORDINATE);
+//        character = new Character(DEFAULT_CHARACTER_COORDINATE, DEFAULT_CHARACTER_COORDINATE);
         //TODO: Do the rest
     }
 
     public void restartCurrentGame() {
-        character = new Character(DEFAULT_CHARACTER_COORDINATE, DEFAULT_CHARACTER_COORDINATE);
+//        character = new Character(DEFAULT_CHARACTER_COORDINATE, DEFAULT_CHARACTER_COORDINATE);
         //TODO: do the rest
     }
 }
