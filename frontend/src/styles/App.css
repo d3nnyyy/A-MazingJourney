@@ -16,6 +16,10 @@
   margin: 10rem;
 }
 
+.hidden {
+  display: none;
+}
+
 .regenerate-start-container {
   display: flex;
   flex-direction: column;

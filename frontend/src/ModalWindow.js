@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import Button from '@mui/material/Button'
 function ModalWindow ({open, setOpenModal}) {
   const handleClose = () => setOpenModal(false);
   const style = {
@@ -30,7 +30,11 @@ function ModalWindow ({open, setOpenModal}) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Congratulations, you completed the maze!
           </Typography>
-        </Box>
+          <Box sx={{display: 'flex', justifyContent:'space-evenly', pt: 2}}>
+            <Button>Try again</Button>
+            <Button>Stats</Button>
+          </Box>
+        </Box>  
       </Modal>
     )
 }
