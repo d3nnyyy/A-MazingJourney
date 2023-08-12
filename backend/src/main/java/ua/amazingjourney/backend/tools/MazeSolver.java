@@ -14,13 +14,17 @@ public class MazeSolver {
      * @return the list of cells. Starting from beginning to goal position
      */
     public static LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Cell startingPosition) {
+
+        int width = maze.getSize() * 2 - 1;
+        int height = maze.getSize() * 2 - 1;
+
         //Maze in progress of solving. It is integer, so that we can mark distance from each point to beginning
         //And later we can go back to the start
-        int[][] solvingMaze = new int[maze.getSize()][maze.getSize()];
+        int[][] solvingMaze = new int[height][width];
 
-        boolean[][] mazeOld = new boolean[maze.getSize()][maze.getSize()];
+        //boolean[][] mazeOld = new boolean[maze.getSize()][maze.getSize()];
 
-        fillNewMaze(solvingMaze, mazeOld);
+        fillNewMaze(solvingMaze, maze.getGrid());
         goToGoalPosition(goalPosition, startingPosition, solvingMaze);
 
         //Now we make the list that is the way to the goal
@@ -108,7 +112,7 @@ public class MazeSolver {
             for (Cell cell: savedLastCells) {
 
                 //We check if we got to the goal
-                if (cell == goalPosition) {
+                if (cell.equals(goalPosition)) {
                     reachedGoal = true;
                     break;
                 }

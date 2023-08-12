@@ -1,11 +1,18 @@
 package ua.amazingjourney.backend.tools;
 
+import ua.amazingjourney.backend.model.Maze;
+import ua.amazingjourney.backend.model.MazeInitializer;
+
 import java.util.Arrays;
 
 public class MazeConverter {
 
     public static void main(String[] args) {
 
+        Maze maze = new Maze( new MazeInitializer(5, 10));
+        System.out.println(convertToMazeString(maze.getGrid()));
+
+        System.out.println(MazeSolver.solveMazeBFS(maze, new Cell(8,8), new Cell(0, 0)));
     }
 
     public static String convertToMazeString(boolean[][] mazeArray) {
