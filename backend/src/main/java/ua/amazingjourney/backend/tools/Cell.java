@@ -1,5 +1,6 @@
 package ua.amazingjourney.backend.tools;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,8 +9,11 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Cell {
-    public int iCoordinate;
-    public int jCoordinate;
+
+    @JsonProperty("iCoordinate")
+    private int iCoordinate;
+    @JsonProperty("jCoordinate")
+    private int jCoordinate;
 
     public Cell(Cell another) {
         this.iCoordinate = another.getICoordinate();
