@@ -29,10 +29,11 @@ function App() {
       difficulty: difficulty,
       size: size
     })
-    .then(res => {setMaze(res.data)
+    .then(res => {
+    setMaze(res.data.maze)
     setX(0)
     setY(0)
-    setMoveDistance(700/res.data.length)
+    setMoveDistance(700/res.data.maze.length)
     setPlayerPos([0, 0])
     })
     .catch(err => console.log(err))
