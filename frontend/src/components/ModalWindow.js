@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button'
-function ModalWindow ({setX, setY, setPlayerPos, setPath, setMazeStarted, setDestinationReached, open, setOpenModal}) {
+function ModalWindow ({setShowStats, setX, setY, setPlayerPos, setPath, setMazeStarted, setDestinationReached, open, setOpenModal}) {
   const handleClick = () => {
     setX(0); setY(0); setPlayerPos([0, 0]); setPath([[0,0]]); setDestinationReached(false); setMazeStarted(false) 
   }
@@ -35,7 +35,7 @@ function ModalWindow ({setX, setY, setPlayerPos, setPath, setMazeStarted, setDes
           </Typography>
           <Box sx={{display: 'flex', justifyContent:'space-evenly', pt: 2}}>
             <Button onClick={handleClick}>Try again</Button>
-            <Button>Stats</Button>
+            <Button onClick={() => {setOpenModal(false); setShowStats(showStats => !showStats)}}>Stats</Button>
           </Box>
         </Box>  
       </Modal>

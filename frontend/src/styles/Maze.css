@@ -4,15 +4,11 @@
     align-items: center;
     justify-content: center;   
   }
-
-
   .row {
     display: flex;
   }
   
   .cell {
-    border-radius: 2px;
-    outline: 1px solid gray;
     background-color: #fff;
   }
   
@@ -29,19 +25,24 @@
 
   .absolute-position {
     position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-430%, -25%); 
-    width: 100px;
-    height: 100px;
+    top: 350px; 
+    left: 330px; 
+    /* transform: translate(-365%, -25%);  */
     z-index: 999;
   }
 
+  .visited-cell {
+    background-color: #e3940b;
+    border: 5px solid black;
+  }
+
   .wall {
-    background-color: black;
+    /* background-color: black; */
+    background-color: inherit;
   }
   
   .path {
+    outline: 1px solid gray;
     background-color: white;
   }
   
@@ -58,4 +59,20 @@
   .end {
     outline: 2px solid green;
     background-color: #66bb6a;
+  }
+
+  .rounded-top-right {
+    border-radius: 0 12px 0 0;
+  }
+
+  .rounded-top-left {
+    border-radius: 12px 0 0 0;
+  }
+
+  .rounded-bottom-right {
+    border-radius: 0 0 12px 0
+  }
+
+  .rounded-bottom-left {
+    border-radius: 0 0 0 12px
   }

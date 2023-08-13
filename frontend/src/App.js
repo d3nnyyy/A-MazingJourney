@@ -20,6 +20,7 @@ function App() {
       }
     }
   })
+  const [showStats, setShowStats] = useState(false)
   const [stats, setStats] = useState('')
   const [path, setPath] = useState([[0, 0]]);
   const [openModal, setOpenModal] = useState(false);
@@ -86,6 +87,7 @@ function App() {
       <ThemeProvider theme={theme}>
         {destinationReached && (
           <ModalWindow
+            setShowStats={setShowStats}
             setMazeStarted={setMazeStarted}
             setDestinationReached={setDestinationReached}
             setPath={setPath}
@@ -99,6 +101,7 @@ function App() {
         <div className="app-container">
           {maze ? (
               <Maze
+                showStats={showStats}
                 setMazeStarted = {setMazeStarted}
                 mazeStarted = {mazeStarted}
                 setStats={setStats}

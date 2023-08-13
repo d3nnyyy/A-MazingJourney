@@ -4,15 +4,39 @@ import spongebobImage from "../assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
-function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
-  const mazeRef = useRef(maze)
+function Maze({
+  showStats,
+  setMazeStarted,
+  mazeStarted,
+  setStats,
+  setOpenModal,
+  destinationReached,
+  setDestinationReached,
+  path,
+  setPath,
+  setListenToEvents,
+  listenToEvents,
+  setPlayerPos,
+  playerPos,
+  moveDistance,
+  maze,
+  x,
+  y,
+  setX,
+  setY,
+}) {
+  const showStatsRef = useRef(showStats)
+  useEffect(() => {
+    showStatsRef.current = showStats;
+  }, [showStats]);
+  const mazeRef = useRef(maze);
   useEffect(() => {
     mazeRef.current = maze;
   }, [maze]);
-  const pathRef = useRef(path)
+  const pathRef = useRef(path);
   useEffect(() => {
     pathRef.current = path;
-    console.log(path)
+    console.log(path);
   }, [path]);
   const moveDistanceRef = useRef(moveDistance);
   useEffect(() => {
@@ -22,7 +46,7 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
     if (listenToEvents) {
       window.addEventListener("keydown", handleKeyPress);
     }
-  
+
     return () => {
       if (listenToEvents) {
         window.removeEventListener("keydown", handleKeyPress);
@@ -36,18 +60,22 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
   const playerPosRef = useRef(playerPos);
   useEffect(() => {
     playerPosRef.current = playerPos;
-    if (playerPosRef.current[0] === mazeRef.current.length - 1 && playerPosRef.current[1] === mazeRef.current.length - 1){
-      setDestinationReached(destinationReached => !destinationReached)
-      setListenToEvents(listenToEvents => !listenToEvents)
-      setOpenModal(true)
-      const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
-      axios.post(`http://${URL}/api/maze/stats`, {
-        "visitedCells": pathRef.current
-      })
-      .then(res => {console.log(res)
-      setStats(res.data)
-      })
-      .catch(err => console.log(err))
+    if (
+      playerPosRef.current[0] === mazeRef.current.length - 1 &&
+      playerPosRef.current[1] === mazeRef.current.length - 1
+    ) {
+      setDestinationReached((destinationReached) => !destinationReached);
+      setListenToEvents((listenToEvents) => !listenToEvents);
+      setOpenModal(true);
+      const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com";
+      axios
+        .post(`http://${URL}/api/maze/stats`, {
+          visitedCells: pathRef.current,
+        })
+        .then((res) => {
+          setStats(res.data);
+        })
+        .catch((err) => console.log(err));
     }
     // eslint-disable-next-line
   }, [playerPos]);
@@ -62,47 +90,68 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
     switch (event.code) {
       case "KeyW":
       case "ArrowUp":
-        if (playerPosRef.current[1] === 0 || (mazeRef.current[playerPosRef.current[1]-1][playerPosRef.current[0]])){
-          break
+        if (
+          playerPosRef.current[1] === 0 ||
+          mazeRef.current[playerPosRef.current[1] - 1][playerPosRef.current[0]]
+        ) {
+          break;
         }
         setY((prevY) => prevY - moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0], playerPos[1] - 1]);
-        setPath(path => [...path, [playerPosRef.current[0], playerPosRef.current[1]-1]])
+        setPath((path) => [
+          ...path,
+          [playerPosRef.current[0], playerPosRef.current[1] - 1],
+        ]);
         break;
       case "KeyS":
       case "ArrowDown":
-        if ((playerPosRef.current[1] === mazeRef.current.length-1) || (mazeRef.current[playerPosRef.current[1]+1][playerPosRef.current[0]])){
-          break
+        if (
+          playerPosRef.current[1] === mazeRef.current.length - 1 ||
+          mazeRef.current[playerPosRef.current[1] + 1][playerPosRef.current[0]]
+        ) {
+          break;
         }
         setY((prevY) => prevY + moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0], playerPos[1] + 1]);
-        setPath(path => [...path, [playerPosRef.current[0], playerPosRef.current[1]+1]])
+        setPath((path) => [
+          ...path,
+          [playerPosRef.current[0], playerPosRef.current[1] + 1],
+        ]);
         break;
       case "KeyA":
       case "ArrowLeft":
-        if (playerPosRef.current[0] === 0 || (mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0]-1])){
-          break
+        if (
+          playerPosRef.current[0] === 0 ||
+          mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0] - 1]
+        ) {
+          break;
         }
         setX((prevX) => prevX - moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0] - 1, playerPos[1]]);
-        setPath(path => [...path, [playerPosRef.current[0]-1, playerPosRef.current[1]]])
+        setPath((path) => [
+          ...path,
+          [playerPosRef.current[0] - 1, playerPosRef.current[1]],
+        ]);
         break;
       case "KeyD":
       case "ArrowRight":
-        if (playerPosRef.current[0] === mazeRef.current.length-1 || (mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0]+1])){
-          break
+        if (
+          playerPosRef.current[0] === mazeRef.current.length - 1 ||
+          mazeRef.current[playerPosRef.current[1]][playerPosRef.current[0] + 1]
+        ) {
+          break;
         }
         setX((prevX) => prevX + moveDistanceRef.current);
         setPlayerPos((playerPos) => [playerPos[0] + 1, playerPos[1]]);
-        setPath(path => [...path, [playerPosRef.current[0]+1, playerPosRef.current[1]]])
+        setPath((path) => [
+          ...path,
+          [playerPosRef.current[0] + 1, playerPosRef.current[1]],
+        ]);
         break;
       default:
         break;
     }
   };
-  // useEffect(() => {
-  //   console.log(playerPos);
-  // }, [playerPos]);
   useEffect(() => {
     if (isMoving) {
       cancelAnimationFrame(animationFrame.current);
@@ -115,27 +164,28 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
     }
   }, [isMoving]);
   return (
-    <div className={`maze-container ${destinationReached ? '' : ''}`}>
-      <div className='rows'>
-      <div className={` ${mazeStarted ? 'hidden' : 'absolute-position'}`}>
-        <motion.div
-                initial={{ opacity: 0.5, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 3 }}
-                    onClick={() => {
-                      setListenToEvents((listenToEvents) => !listenToEvents);
-                      setMazeStarted((mazeStarted) => !mazeStarted);
-                    }}
-                  >
-                    Start
-                  </Button>
-                </motion.div>
+    <div className={`maze-container ${destinationReached ? "" : ""}`}>
+              <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
+          <motion.div
+            initial={{ opacity: 0.5, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Button
+              size="large"
+              variant="contained"
+              color="secondary"
+              sx={{ m: 3 }}
+              onClick={() => {
+                setListenToEvents((listenToEvents) => !listenToEvents);
+                setMazeStarted((mazeStarted) => !mazeStarted);
+              }}
+            >
+              Start
+            </Button>
+          </motion.div>
         </div>
+      <div className="rows">
         {maze.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((cell, cellIndex) => (
@@ -145,9 +195,17 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
                   height: `${700 / maze.length}px`,
                 }}
                 key={cellIndex}
-                className={`cell ${cell === true ? "wall" : "path"} ${mazeStarted ? '' : 'blur'} ${
-                  rowIndex === 0 && cellIndex === 0 ? "start" : ""
-                } ${rowIndex === maze.length-1 && cellIndex === maze.length-1 ? 'end' : ''}`}
+                className={`cell ${cell === true ? "wall" : "path"} ${
+                  mazeStarted ? "" : "blur"
+                } ${rowIndex === 0 && cellIndex === 0 ? "start rounded-top-left" : ""} ${
+                  rowIndex === maze.length - 1 && cellIndex === maze.length - 1
+                    ? "end rounded-bottom-right"
+                    : ""
+                }
+                ${(rowIndex === 0 && cellIndex === maze.length - 1) ? 'rounded-top-right' : ''}
+                ${(rowIndex === maze.length - 1 && cellIndex === 0) ? 'rounded-bottom-left' : ''}
+                ${(showStatsRef.current ? console.log(path.includes([rowIndex+1, cellIndex+1])) : '')}
+                `}
               >
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
@@ -167,7 +225,6 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
             ))}
           </div>
         ))}
- 
       </div>
     </div>
   );
