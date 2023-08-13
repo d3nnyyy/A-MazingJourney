@@ -6,7 +6,9 @@
 
 .app-container {
   display: flex;
-  flex-direction: column-reverse;
+  outline: 1px solid red;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .input-container {

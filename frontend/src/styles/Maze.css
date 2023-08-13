@@ -1,5 +1,5 @@
 .maze-container {
-    margin: 2rem;
+    margin: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,7 @@
     position: absolute; /* Position the element absolutely */
     top: 50%; /* Move the element down by 50% of parent's height */
     left: 50%; /* Move the element horizontally by 50% of parent's width */
-    transform: translate(-70%, 240%); /* Adjust to center the element */
+    transform: translate(-430%, -25%); /* Adjust to center the element */
     width: 100px;
     height: 100px;
     z-index: 999;

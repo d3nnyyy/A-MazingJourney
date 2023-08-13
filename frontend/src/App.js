@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Maze from "./components/Maze";
 import Logo from "./components/Logo";
 import { motion } from "framer-motion";
@@ -7,8 +7,9 @@ import ModalWindow from "./components/ModalWindow";
 import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
+import getStats from "./functions/stats";
 function App() {
-  const [stats, setStats] = useState()
+  const [stats, setStats] = useState('')
   const [path, setPath] = useState([[0, 0]]);
   const [openModal, setOpenModal] = useState(false);
   const [mazeStarted, setMazeStarted] = useState(false);
@@ -34,6 +35,7 @@ function App() {
       })
       .then((res) => {
         setMaze(res.data.maze);
+        setStats('');
         setX(0);
         setY(0);
         setMoveDistance(700 / res.data.maze.length);
@@ -108,126 +110,129 @@ function App() {
           <Logo />
         )}
         <div className="input-container">
-          <Box
-            sx={
-              mazeStarted
-                ? { display: "none" }
-                : { display: "block", width: "25vw" }
-            }
-          >
-            <Box sx={{ display: "flex" }}>
-              <Typography>Choose the size of the maze:</Typography>
-              <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
-                <InfoIcon
-                  sx={{
-                    width: "15px",
-                    height: "15px",
-                    color: "#36454F",
-                    ml: 0.5,
-                    mt: 0.5,
-                  }}
-                />
-              </Tooltip>
+            <Box
+              sx={
+                mazeStarted
+                  ? { display: "none" }
+                  : { display: "block", width: "25vw" }
+              }
+            >
+              <Box sx={{ display: "flex" }}>
+                <Typography>Choose the size of the maze:</Typography>
+                <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
+                  <InfoIcon
+                    sx={{
+                      width: "15px",
+                      height: "15px",
+                      color: "#36454F",
+                      ml: 0.5,
+                      mt: 0.5,
+                    }}
+                  />
+                </Tooltip>
+              </Box>
+              <Slider
+                defaultValue={5}
+                min={5}
+                max={15}
+                step={1}
+                marks={sizeMarks}
+                aria-label="Default"
+                valueLabelDisplay="auto"
+                value={size}
+                onChange={handleSizeChange}
+                color="secondary"
+              />
+              <Box sx={{ display: "flex" }}>
+                <Typography>Choose the difficulty of the maze:</Typography>
+                <Tooltip title="The higher the difficulty of the maze, the more complex will the generated maze be.">
+                  <InfoIcon
+                    sx={{
+                      width: "15px",
+                      height: "15px",
+                      color: "#36454F",
+                      ml: 0.5,
+                      mt: 0.5,
+                    }}
+                  />
+                </Tooltip>
+              </Box>
+              <Slider
+                defaultValue={5}
+                min={1}
+                max={10}
+                step={1}
+                marks={difficultyMarks}
+                aria-label="Default"
+                valueLabelDisplay="auto"
+                value={difficulty}
+                onChange={handleDifficultyChange}
+                color="secondary"
+              />
             </Box>
-
-            <Slider
-              defaultValue={5}
-              min={5}
-              max={15}
-              step={1}
-              marks={sizeMarks}
-              aria-label="Default"
-              valueLabelDisplay="auto"
-              value={size}
-              onChange={handleSizeChange}
-              color="secondary"
-            />
-            <Box sx={{ display: "flex" }}>
-              <Typography>Choose the difficulty of the maze:</Typography>
-              <Tooltip title="The higher the difficulty of the maze, the more complex will the generated maze be.">
-                <InfoIcon
-                  sx={{
-                    width: "15px",
-                    height: "15px",
-                    color: "#36454F",
-                    ml: 0.5,
-                    mt: 0.5,
-                  }}
-                />
-              </Tooltip>
-            </Box>
-            <Slider
-              defaultValue={5}
-              min={1}
-              max={10}
-              step={1}
-              marks={difficultyMarks}
-              aria-label="Default"
-              valueLabelDisplay="auto"
-              value={difficulty}
-              onChange={handleDifficultyChange}
-              color="secondary"
-            />
-          </Box>
-          {maze ? (
-            !mazeStarted ? (
-              <div className="regenerate-start-container">
+            {maze ? (
+              !mazeStarted ? (
+                <div className="regenerate-start-container">
+                  <motion.div
+                    initial={{ opacity: 0.5, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{ m: 3 }}
+                      onClick={handleSubmit}
+                    >
+                      Regenerate
+                    </Button>
+                  </motion.div>
+                </div>
+              ) : (
                 <motion.div
-                  initial={{ opacity: 0.5, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
+                initial={{ opacity: 0.5, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
                 >
                   <Button
                     variant="contained"
                     color="secondary"
                     sx={{ m: 3 }}
-                    onClick={handleSubmit}
+                    onClick={() => {
+                      setStats('');
+                      setX(0);
+                      setY(0);
+                      setPlayerPos([0, 0]);
+                      setPath([[0,0]]);
+                      setListenToEvents(true);
+                      setDestinationReached(false);
+                    }}
                   >
-                    Regenerate
+                    Reset
                   </Button>
                 </motion.div>
-              </div>
+              )
             ) : (
               <motion.div
               initial={{ opacity: 0.5, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              >
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.25 }}>
                 <Button
                   variant="contained"
                   color="secondary"
                   sx={{ m: 3 }}
-                  onClick={() => {
-                    setX(0);
-                    setY(0);
-                    setPlayerPos([0, 0]);
-                    setPath([[0,0]]);
-                    setListenToEvents(true);
-                    setDestinationReached(false);
-                  }}
+                  onClick={handleSubmit}
                 >
-                  Reset
+                  Generate maze
                 </Button>
               </motion.div>
-            )
-          ) : (
-            <motion.div
-            initial={{ opacity: 0.5, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.25 }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{ m: 3 }}
-                onClick={handleSubmit}
-              >
-                Generate maze
-              </Button>
-            </motion.div>
-          )}
+            )}
+                  {
+                    stats && getStats(stats)
+                   }
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 
