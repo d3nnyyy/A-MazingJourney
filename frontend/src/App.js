@@ -26,8 +26,9 @@ function App() {
   const handleClose = () => setOpenModal(false);
 
   const handleSubmit = () => {
+    const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
     axios
-      .post("http://localhost:8080/api/maze/generate", {
+      .post(`http://${URL}api/maze/generate`, {
         difficulty: difficulty,
         size: size,
       })

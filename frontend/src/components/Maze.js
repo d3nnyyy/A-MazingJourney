@@ -34,7 +34,8 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
       setDestinationReached(destinationReached => !destinationReached)
       setListenToEvents(listenToEvents => !listenToEvents)
       setOpenModal(true)
-      axios.post("http://localhost:8080/api/character/traveled-path", {
+      const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
+      axios.post(`http://${URL}/api/character/traveled-path`, {
         "visitedCells": path
       })
       .then(res => console.log(res))
