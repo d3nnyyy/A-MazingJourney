@@ -55,7 +55,7 @@ public class MazeController {
         } catch (ShortestPathCalculationException e) {
             log.error("Error calculating shortest path", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
@@ -78,7 +78,7 @@ public class MazeController {
         } catch (ShortestPathCalculationException e) {
             log.error("Error calculating shortest path", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
