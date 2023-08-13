@@ -201,7 +201,7 @@ function App() {
                     setX(0);
                     setY(0);
                     setPlayerPos([0, 0]);
-                    setPath([]);
+                    setPath([[0,0]]);
                     setListenToEvents(true);
                     setDestinationReached(false);
                   }}
