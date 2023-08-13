@@ -98,26 +98,26 @@ function App() {
         )}
         <div className="app-container">
           {maze ? (
-            <Maze
-              setMazeStarted = {setMazeStarted}
-              mazeStarted = {mazeStarted}
-              setStats={setStats}
-              destinationReached={destinationReached}
-              setOpenModal={setOpenModal}
-              setDestinationReached={setDestinationReached}
-              path={path}
-              setPath={setPath}
-              setListenToEvents={setListenToEvents}
-              listenToEvents={listenToEvents}
-              playerPos={playerPos}
-              setPlayerPos={setPlayerPos}
-              moveDistance={moveDistance}
-              maze={maze}
-              x={x}
-              y={y}
-              setX={setX}
-              setY={setY}
-            />
+              <Maze
+                setMazeStarted = {setMazeStarted}
+                mazeStarted = {mazeStarted}
+                setStats={setStats}
+                destinationReached={destinationReached}
+                setOpenModal={setOpenModal}
+                setDestinationReached={setDestinationReached}
+                path={path}
+                setPath={setPath}
+                setListenToEvents={setListenToEvents}
+                listenToEvents={listenToEvents}
+                playerPos={playerPos}
+                setPlayerPos={setPlayerPos}
+                moveDistance={moveDistance}
+                maze={maze}
+                x={x}
+                y={y}
+                setX={setX}
+                setY={setY}
+              />
           ) : (
             <Logo />
           )}
