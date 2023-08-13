@@ -8,14 +8,14 @@ import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 function App() {
-  const [path, setPath] = useState([]);
-  const pathRef = useRef(path);
+  const [stats, setStats] = useState()
+  const [path, setPath] = useState([[0, 0]]);
   const [openModal, setOpenModal] = useState(false);
   const [mazeStarted, setMazeStarted] = useState(false);
   const [destinationReached, setDestinationReached] = useState(false);
   const [listenToEvents, setListenToEvents] = useState(false);
   const [playerPos, setPlayerPos] = useState([0, 0]);
-  const [size, setSize] = useState(12);
+  const [size, setSize] = useState(10);
   const [difficulty, setDifficulty] = useState(5);
   const [maze, setMaze] = useState();
   const handleSizeChange = (event, value) => setSize(value);
@@ -26,8 +26,9 @@ function App() {
   const handleClose = () => setOpenModal(false);
 
   const handleSubmit = () => {
+    const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
     axios
-      .post("http://localhost:8080/api/maze/generate", {
+      .post(`http://${URL}/api/maze/generate`, {
         difficulty: difficulty,
         size: size,
       })
@@ -42,8 +43,8 @@ function App() {
   };
   const sizeMarks = [
     {
-      value: 4,
-      label: "4",
+      value: 5,
+      label: "5",
     },
     {
       value: 15,
@@ -84,6 +85,8 @@ function App() {
       <div className="app-container">
         {maze ? (
           <Maze
+            mazeStarted = {mazeStarted}
+            setStats={setStats}
             destinationReached={destinationReached}
             setOpenModal={setOpenModal}
             setDestinationReached={setDestinationReached}
@@ -128,7 +131,7 @@ function App() {
 
             <Slider
               defaultValue={5}
-              min={4}
+              min={5}
               max={15}
               step={1}
               marks={sizeMarks}
