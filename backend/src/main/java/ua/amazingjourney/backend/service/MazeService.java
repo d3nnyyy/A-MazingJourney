@@ -95,12 +95,10 @@ public class MazeService {
 
         try {
 
-            LinkedList<LinkedList<Integer>> traveledPath = traveledPathRequest.getVisitedCells();
-
-            int traveledPathLength = traveledPath.size();
+            int traveledPathLength = traveledPathRequest.getVisitedCells().size();
             int shortestPathLength = getShortestPath().size();
 
-            return (double) (traveledPathLength / shortestPathLength * 100);
+            return ((double) traveledPathLength / shortestPathLength) * 100;
 
         } catch (StatsCalculationException e) {
             throw new StatsCalculationException("Error calculating stats", e);
