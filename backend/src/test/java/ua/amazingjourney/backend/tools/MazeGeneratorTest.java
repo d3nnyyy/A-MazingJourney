@@ -76,4 +76,26 @@ class MazeGeneratorTest {
         assertEquals(19, maze.length);
         assertEquals(19, maze[0].length);
     }
+
+    @Test
+    public void testSmallMazeSmallestDifficulty() {
+        MazeInitializer mazeInitializer = new MazeInitializer(2,1);
+
+        boolean[][] maze = MazeGenerator.generateMaze(mazeInitializer);
+
+        assertNotNull(maze);
+        assertEquals(3, maze.length);
+        assertEquals(3, maze[0].length);
+    }
+
+    @Test
+    public void testSmallMazeBiggestDifficulty() {
+        MazeInitializer mazeInitializer = new MazeInitializer(2,10);
+
+        boolean[][] maze = MazeGenerator.generateMaze(mazeInitializer);
+
+        assertNotNull(maze);
+        assertEquals(3, maze.length);
+        assertEquals(3, maze[0].length);
+    }
 }
