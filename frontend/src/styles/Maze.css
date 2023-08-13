@@ -2,18 +2,21 @@
     margin: 3rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;   
   }
-  
+
+
   .row {
     display: flex;
   }
   
   .cell {
+    border-radius: 2px;
     outline: 1px solid gray;
     background-color: #fff;
   }
   
+
   .start {
     display: flex;
     align-items: center;
@@ -25,10 +28,10 @@
   }
 
   .absolute-position {
-    position: absolute; /* Position the element absolutely */
-    top: 50%; /* Move the element down by 50% of parent's height */
-    left: 50%; /* Move the element horizontally by 50% of parent's width */
-    transform: translate(-430%, -25%); /* Adjust to center the element */
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-430%, -25%); 
     width: 100px;
     height: 100px;
     z-index: 999;
@@ -49,6 +52,10 @@
   }
 
   .blur {
-    filter: blur(2px);
+    filter: blur(10px);
   }
   
+  .end {
+    outline: 2px solid green;
+    background-color: #66bb6a;
+  }

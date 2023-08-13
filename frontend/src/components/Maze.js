@@ -147,7 +147,7 @@ function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationR
                 key={cellIndex}
                 className={`cell ${cell === true ? "wall" : "path"} ${mazeStarted ? '' : 'blur'} ${
                   rowIndex === 0 && cellIndex === 0 ? "start" : ""
-                }`}
+                } ${rowIndex === maze.length-1 && cellIndex === maze.length-1 ? 'end' : ''}`}
               >
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
