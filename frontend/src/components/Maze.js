@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import spongebobImage from "../assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
+import { Button } from "@mui/material";
+function Maze({setMazeStarted, mazeStarted, setStats, setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
   const mazeRef = useRef(maze)
   useEffect(() => {
     mazeRef.current = maze;
@@ -40,7 +41,6 @@ function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDesti
       setListenToEvents(listenToEvents => !listenToEvents)
       setOpenModal(true)
       const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
-      setPath(path => [[0, 0], ...path])
       axios.post(`http://${URL}/api/maze/stats`, {
         "visitedCells": pathRef.current
       })
@@ -116,7 +116,26 @@ function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDesti
   }, [isMoving]);
   return (
     <div className={`maze-container ${destinationReached ? '' : ''}`}>
-      <div className="rows">
+      <div className='rows'>
+      <div className={` ${mazeStarted ? 'hidden' : 'absolute-position'}`}>
+        <motion.div
+                initial={{ opacity: 0.5, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    color="secondary"
+                    sx={{ m: 3 }}
+                    onClick={() => {
+                      setListenToEvents((listenToEvents) => !listenToEvents);
+                      setMazeStarted((mazeStarted) => !mazeStarted);
+                    }}
+                  >
+                    Start
+                  </Button>
+                </motion.div>
+        </div>
         {maze.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((cell, cellIndex) => (
@@ -126,7 +145,7 @@ function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDesti
                   height: `${700 / maze.length}px`,
                 }}
                 key={cellIndex}
-                className={`cell ${cell === true ? "wall" : "path"} ${
+                className={`cell ${cell === true ? "wall" : "path"} ${mazeStarted ? '' : 'blur'} ${
                   rowIndex === 0 && cellIndex === 0 ? "start" : ""
                 }`}
               >
@@ -148,6 +167,7 @@ function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDesti
             ))}
           </div>
         ))}
+ 
       </div>
     </div>
   );

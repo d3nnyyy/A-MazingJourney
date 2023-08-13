@@ -20,6 +20,20 @@
     justify-content: center;
   }
   
+  .hidden {
+    display: hidden;
+  }
+
+  .absolute-position {
+    position: absolute; /* Position the element absolutely */
+    top: 50%; /* Move the element down by 50% of parent's height */
+    left: 50%; /* Move the element horizontally by 50% of parent's width */
+    transform: translate(-70%, 240%); /* Adjust to center the element */
+    width: 100px;
+    height: 100px;
+    z-index: 999;
+  }
+
   .wall {
     background-color: black;
   }
@@ -35,5 +49,6 @@
   }
 
   .blur {
-    filter: blur(10px);
+    filter: blur(2px);
   }
+  

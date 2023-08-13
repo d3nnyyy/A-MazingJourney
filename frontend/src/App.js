@@ -85,6 +85,7 @@ function App() {
       <div className="app-container">
         {maze ? (
           <Maze
+            setMazeStarted = {setMazeStarted}
             mazeStarted = {mazeStarted}
             setStats={setStats}
             destinationReached={destinationReached}
@@ -183,22 +184,6 @@ function App() {
                     onClick={handleSubmit}
                   >
                     Regenerate
-                  </Button>
-                </motion.div>
-                <motion.div
-                initial={{ opacity: 0.5, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 3 }}
-                    onClick={() => {
-                      setListenToEvents((listenToEvents) => !listenToEvents);
-                      setMazeStarted((mazeStarted) => !mazeStarted);
-                    }}
-                  >
-                    Start
                   </Button>
                 </motion.div>
               </div>
