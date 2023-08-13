@@ -1,5 +1,6 @@
 package ua.amazingjourney.backend.tools;
 
+import ua.amazingjourney.backend.exception.MazeGenerationException;
 import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.model.MazeInitializer;
 
@@ -22,7 +23,12 @@ public class MazeGenerator {
 
         //For secure reasons, size cannot be less than 1
         if (mazeInitializer.getSize() < 1) {
-            mazeInitializer.setSize(1);
+            throw new MazeGenerationException("Size of maze must be positive");
+        }
+
+        //We also check if the difficulty is from 1 to 10
+        if (mazeInitializer.getDifficulty() < 1 || mazeInitializer.getDifficulty() > 10) {
+            throw new MazeGenerationException("Difficulty must be between 1 and 10");
         }
 
         //Getting correct parameters of an array

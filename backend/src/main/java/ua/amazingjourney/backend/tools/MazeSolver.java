@@ -1,5 +1,6 @@
 package ua.amazingjourney.backend.tools;
 
+import ua.amazingjourney.backend.exception.ShortestPathCalculationException;
 import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.model.Maze;
 
@@ -18,6 +19,23 @@ public class MazeSolver {
      * @return the list of cells. Starting from beginning to goal position
      */
     public static LinkedList<Cell> solveMazeBFS(Maze maze, Cell goalPosition, Cell startingPosition) {
+
+        //Checking if starting and goal positions are accessible
+        if (startingPosition.getICoordinate() < 0 || startingPosition.getICoordinate() >= maze.getSize() * 2 - 1
+                || startingPosition.getJCoordinate() < 0 || startingPosition.getJCoordinate() >= maze.getSize() * 2 - 1) {
+            throw new ShortestPathCalculationException("The starting position is not in the maze");
+        }
+        if (goalPosition.getICoordinate() < 0 || goalPosition.getICoordinate() >= maze.getSize() * 2 - 1
+                || goalPosition.getJCoordinate() < 0 || goalPosition.getJCoordinate() >= maze.getSize() * 2 - 1) {
+            throw new ShortestPathCalculationException("The goal position is not in the maze");
+        }
+        if (maze.getGrid()[startingPosition.getICoordinate()][startingPosition.getJCoordinate()]) {
+            throw new ShortestPathCalculationException("The starting position is inaccessible");
+        }
+        if (maze.getGrid()[goalPosition.getICoordinate()][goalPosition.getJCoordinate()]) {
+            throw new ShortestPathCalculationException("The goal position is inaccessible");
+        }
+
 
         //Calculating actual size of a maze array
         int width = maze.getSize() * 2 - 1;
