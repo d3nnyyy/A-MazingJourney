@@ -1,11 +1,12 @@
 package ua.amazingjourney.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ua.amazingjourney.backend.exception.MazeGenerationException;
+import ua.amazingjourney.backend.exception.ShortestPathCalculationException;
 import ua.amazingjourney.backend.model.MazeInitializer;
 import ua.amazingjourney.backend.model.MazeResponse;
 import ua.amazingjourney.backend.model.TraveledPathRequest;
@@ -25,6 +26,7 @@ import java.util.LinkedList;
 @RestController
 @RequestMapping("/api/maze")
 @RequiredArgsConstructor
+@Slf4j
 public class MazeController {
 
     /**
@@ -39,11 +41,25 @@ public class MazeController {
      * @return MazeResponse containing the generated maze and its shortest path.
      */
     @PostMapping("/generate")
-    public MazeResponse generateMaze(@RequestBody MazeInitializer mazeInitializer) {
-        boolean[][] generatedMaze = mazeService.generateMaze(mazeInitializer);
-        LinkedList<LinkedList<Integer>> shortestPath = mazeService.getShortestPath();
+    public ResponseEntity<?> generateMaze(@RequestBody MazeInitializer mazeInitializer) {
 
-        return new MazeResponse(generatedMaze, shortestPath);
+        try {
+            boolean[][] generatedMaze = mazeService.generateMaze(mazeInitializer);
+            LinkedList<LinkedList<Integer>> shortestPath = mazeService.getShortestPath();
+
+            return ResponseEntity.ok(new MazeResponse(generatedMaze, shortestPath));
+
+        } catch (MazeGenerationException e) {
+            log.error("Error generating maze", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (ShortestPathCalculationException e) {
+            log.error("Error calculating shortest path", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
     }
 
     /**
@@ -53,7 +69,18 @@ public class MazeController {
      * @return The percentage of traveled path's length compared to the shortest path's length.
      */
     @PostMapping("/stats")
-    public Double getStats(@RequestBody TraveledPathRequest traveledPathRequest) {
-        return mazeService.getStats(traveledPathRequest);
+    public ResponseEntity<?> getStats(@RequestBody TraveledPathRequest traveledPathRequest) {
+
+        try {
+
+            return ResponseEntity.ok(mazeService.getStats(traveledPathRequest));
+
+        } catch (ShortestPathCalculationException e) {
+            log.error("Error calculating shortest path", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

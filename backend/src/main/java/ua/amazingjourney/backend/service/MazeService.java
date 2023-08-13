@@ -2,6 +2,9 @@ package ua.amazingjourney.backend.service;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
+import ua.amazingjourney.backend.exception.MazeGenerationException;
+import ua.amazingjourney.backend.exception.ShortestPathCalculationException;
+import ua.amazingjourney.backend.exception.StatsCalculationException;
 import ua.amazingjourney.backend.model.Cell;
 import ua.amazingjourney.backend.model.Maze;
 import ua.amazingjourney.backend.model.MazeInitializer;
@@ -43,9 +46,15 @@ public class MazeService {
      * @return The generated maze.
      */
     public boolean[][] generateMaze(MazeInitializer mazeInitializer) {
-        maze.setGrid(MazeGenerator.generateMaze(mazeInitializer));
-        maze.setSize(mazeInitializer.getSize());
-        return MazeGenerator.generateMaze(mazeInitializer);
+
+        try {
+            maze.setGrid(MazeGenerator.generateMaze(mazeInitializer));
+            maze.setSize(mazeInitializer.getSize());
+            return maze.getGrid();
+        } catch (Exception e) {
+            throw new MazeGenerationException("Error generating maze", e);
+        }
+
     }
 
     /**
@@ -55,19 +64,25 @@ public class MazeService {
      */
     public LinkedList<LinkedList<Integer>> getShortestPath() {
 
-        LinkedList<Cell> solvedLinkedListOfCells = MazeSolver.solveMazeBFS(
-                maze,
-                new Cell(0, 0),
-                new Cell(maze.getSize() * 2 - 2, maze.getSize() * 2 - 2));
-        LinkedList<LinkedList<Integer>> solvedLinkedListOfLinkedLists = new LinkedList<>();
+        try {
 
-        for (Cell cell : solvedLinkedListOfCells) {
-            LinkedList<Integer> solvedLinkedList = new LinkedList<>();
-            solvedLinkedList.add(cell.getICoordinate());
-            solvedLinkedList.add(cell.getJCoordinate());
-            solvedLinkedListOfLinkedLists.add(solvedLinkedList);
+            LinkedList<Cell> solvedLinkedListOfCells = MazeSolver.solveMazeBFS(
+                    maze,
+                    new Cell(0, 0),
+                    new Cell(maze.getSize() * 2 - 2, maze.getSize() * 2 - 2));
+            LinkedList<LinkedList<Integer>> solvedLinkedListOfLinkedLists = new LinkedList<>();
+
+            for (Cell cell : solvedLinkedListOfCells) {
+                LinkedList<Integer> solvedLinkedList = new LinkedList<>();
+                solvedLinkedList.add(cell.getICoordinate());
+                solvedLinkedList.add(cell.getJCoordinate());
+                solvedLinkedListOfLinkedLists.add(solvedLinkedList);
+            }
+            return solvedLinkedListOfLinkedLists;
+
+        } catch (Exception e) {
+            throw new ShortestPathCalculationException("Error calculating shortest path", e);
         }
-        return solvedLinkedListOfLinkedLists;
     }
 
     /**
@@ -78,11 +93,18 @@ public class MazeService {
      */
     public Double getStats(TraveledPathRequest traveledPathRequest) {
 
-        LinkedList<LinkedList<Integer>> traveledPath = traveledPathRequest.getVisitedCells();
+        try {
 
-        int traveledPathLength = traveledPath.size();
-        int shortestPathLength = getShortestPath().size();
+            LinkedList<LinkedList<Integer>> traveledPath = traveledPathRequest.getVisitedCells();
 
-        return (double) (traveledPathLength / shortestPathLength * 100);
+            int traveledPathLength = traveledPath.size();
+            int shortestPathLength = getShortestPath().size();
+
+            return (double) (traveledPathLength / shortestPathLength * 100);
+
+        } catch (StatsCalculationException e) {
+            throw new StatsCalculationException("Error calculating stats", e);
+        }
+
     }
 }
