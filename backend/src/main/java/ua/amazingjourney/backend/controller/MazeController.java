@@ -22,7 +22,7 @@ import java.util.LinkedList;
  * compared to the shortest path's length.
  */
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/maze")
 @RequiredArgsConstructor
