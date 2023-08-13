@@ -3,11 +3,16 @@ import { motion } from "framer-motion";
 import spongebobImage from "../assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-function Maze({ setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
+function Maze({mazeStarted, setStats, setOpenModal, destinationReached, setDestinationReached, path, setPath, setListenToEvents, listenToEvents, setPlayerPos, playerPos, moveDistance, maze, x, y, setX, setY }) {
   const mazeRef = useRef(maze)
   useEffect(() => {
     mazeRef.current = maze;
   }, [maze]);
+  const pathRef = useRef(path)
+  useEffect(() => {
+    pathRef.current = path;
+    console.log(path)
+  }, [path]);
   const moveDistanceRef = useRef(moveDistance);
   useEffect(() => {
     moveDistanceRef.current = moveDistance;
@@ -35,10 +40,13 @@ function Maze({ setOpenModal, destinationReached, setDestinationReached, path, s
       setListenToEvents(listenToEvents => !listenToEvents)
       setOpenModal(true)
       const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com"
-      axios.post(`http://${URL}/api/character/traveled-path`, {
-        "visitedCells": path
+      setPath(path => [[0, 0], ...path])
+      axios.post(`http://${URL}/api/maze/stats`, {
+        "visitedCells": pathRef.current
       })
-      .then(res => console.log(res))
+      .then(res => {console.log(res)
+      setStats(res.data)
+      })
       .catch(err => console.log(err))
     }
     // eslint-disable-next-line
