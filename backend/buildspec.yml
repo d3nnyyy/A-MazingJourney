@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Entering the build phase...
+      - cd backend
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed successfully!
+artifacts:
+  files:
+    - backend/target/a-mazing-journey-backend.jar
+  discard-paths: yes
