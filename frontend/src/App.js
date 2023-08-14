@@ -9,7 +9,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import getStats from "./functions/stats";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import useWindowDimensions from "./functions/useWindowDimensions";
 function App() {
   const theme = createTheme({
     palette: {
@@ -22,6 +22,7 @@ function App() {
     },
   });
 
+  const { height, width } = useWindowDimensions()
 
   const [showVisitedCells, setShowVisitedCells] = useState(true)
   const [showBestCells, setShowBestCells] = useState(true)
@@ -56,7 +57,7 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance(700 / res.data.maze.length);
+        setMoveDistance((height*0.8) / res.data.maze.length);
         setPlayerPos([0, 0]);
       })
       .catch((err) => console.log(err));
