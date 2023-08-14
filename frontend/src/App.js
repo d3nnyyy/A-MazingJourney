@@ -4,7 +4,7 @@ import Maze from "./components/Maze";
 import Logo from "./components/Logo";
 import { motion } from "framer-motion";
 import ModalWindow from "./components/ModalWindow";
-import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
+import { Slider, Box, Typography, Tooltip, Button, Switch } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import getStats from "./functions/stats";
@@ -21,6 +21,10 @@ function App() {
       },
     },
   });
+
+
+  const [showVisitedCells, setShowVisitedCells] = useState(true)
+  const [showBestCells, setShowBestCells] = useState(true)
   const [shortestPath, setShortestPath] = useState()
   const [showStats, setShowStats] = useState(false);
   const [stats, setStats] = useState("");
@@ -100,6 +104,8 @@ function App() {
         <div className="app-container">
           {maze ? (
             <Maze
+              showBestCells={showBestCells}
+              showVisitedCells={showVisitedCells}
               shortestPath={shortestPath}
               showStats={showStats}
               setMazeStarted={setMazeStarted}
@@ -220,6 +226,15 @@ function App() {
                   </motion.div>
                 </div>
               ) : (
+                <>
+                <Box sx={{display:'flex'}}>
+                <Typography>Show only your path
+                  <Switch color="secondary"  onClick={() => {setShowBestCells(value => !value)}}/>
+                </Typography>
+                <Typography>Show only best path
+                  <Switch color="secondary" onClick={() => {setShowVisitedCells(value => !value)}}/>
+                </Typography>
+                </Box>
                 <motion.div
                   initial={{ opacity: 0.5, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -243,6 +258,7 @@ function App() {
                     Reset
                   </Button>
                 </motion.div>
+                </>
               )
             ) : (
               <motion.div

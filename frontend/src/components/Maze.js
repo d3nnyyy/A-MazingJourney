@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 function Maze({
+  showVisitedCells,
+  showBestCells,
   shortestPath,
   showStats,
   setMazeStarted,
@@ -32,15 +34,15 @@ function Maze({
     return mainArray.some(item => JSON.stringify(item) === JSON.stringify(subArray));
   }
 
-  function cellStyleCheck(arr, userPath, bestPath) {
-    if (containsSubArray(userPath, arr) && containsSubArray(bestPath, arr)) {
+  function cellStyleCheck(cell, row, userPath, bestPath) {
+    if ((containsSubArray(userPath, [cell, row]) && containsSubArray(bestPath, [row, cell]))) {
       return "visited-best-cell"
     }
-    else if (containsSubArray(userPath, arr) && !containsSubArray(bestPath, arr))
+    else if ((containsSubArray(userPath, [cell, row]) && !containsSubArray(bestPath, [row, cell])))
       {
         return "visited-cell"
       }
-    else if (!containsSubArray(userPath, arr) && containsSubArray(bestPath, arr)){
+    else if ((!containsSubArray(userPath, [cell, row]) && containsSubArray(bestPath, [row, cell]))){
       return "best-cell"
     }
     else{
@@ -242,7 +244,7 @@ function Maze({
                 }
                 ${(rowIndex === 0 && cellIndex === maze.length - 1) ? 'rounded-top-right' : ''}
                 ${(rowIndex === maze.length - 1 && cellIndex === 0) ? 'rounded-bottom-left' : ''}
-                ${showStats ? cellStyleCheck([cellIndex, rowIndex], path, shortestPath) : ''}
+                ${showStats ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath) : ''}
 
                 `}
               >
