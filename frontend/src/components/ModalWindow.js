@@ -6,7 +6,9 @@ function ModalWindow ({setShowStats, setX, setY, setPlayerPos, setPath, setMazeS
   const handleClick = () => {
     setX(0); setY(0); setPlayerPos([0, 0]); setPath([[0,0]]); setDestinationReached(false); setMazeStarted(false) 
   }
+  
   const handleClose = () => setOpenModal(false);
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -19,6 +21,7 @@ function ModalWindow ({setShowStats, setX, setY, setPlayerPos, setPath, setMazeS
     p: 4,
     outline: 0
   };
+
     return (
         <Modal
         open={open}

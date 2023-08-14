@@ -27,7 +27,6 @@
     position: absolute; 
     top: 350px; 
     left: 330px; 
-    /* transform: translate(-365%, -25%);  */
     z-index: 999;
   }
 
@@ -37,7 +36,6 @@
   }
 
   .wall {
-    /* background-color: black; */
     background-color: inherit;
   }
   

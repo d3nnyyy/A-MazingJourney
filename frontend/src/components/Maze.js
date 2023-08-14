@@ -26,22 +26,29 @@ function Maze({
   setY,
 }) {
   const showStatsRef = useRef(showStats)
+
   useEffect(() => {
     showStatsRef.current = showStats;
   }, [showStats]);
+
   const mazeRef = useRef(maze);
+
   useEffect(() => {
     mazeRef.current = maze;
   }, [maze]);
+
   const pathRef = useRef(path);
+
   useEffect(() => {
     pathRef.current = path;
     console.log(path);
   }, [path]);
+
   const moveDistanceRef = useRef(moveDistance);
   useEffect(() => {
     moveDistanceRef.current = moveDistance;
   }, [moveDistance]);
+
   useEffect(() => {
     if (listenToEvents) {
       window.addEventListener("keydown", handleKeyPress);
@@ -54,10 +61,12 @@ function Maze({
     };
     // eslint-disable-next-line
   }, [listenToEvents]);
+
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
   const [isMoving, setIsMoving] = useState(false);
   const playerPosRef = useRef(playerPos);
+
   useEffect(() => {
     playerPosRef.current = playerPos;
     if (
@@ -79,7 +88,9 @@ function Maze({
     }
     // eslint-disable-next-line
   }, [playerPos]);
+
   const moveDelay = 25;
+
   const handleKeyPress = (event) => {
     const currentTime = Date.now();
     if (currentTime - lastKeyPressTime.current < moveDelay) {
@@ -87,6 +98,7 @@ function Maze({
     }
     lastKeyPressTime.current = currentTime;
     setIsMoving(true);
+
     switch (event.code) {
       case "KeyW":
       case "ArrowUp":
@@ -154,6 +166,7 @@ function Maze({
         break;
     }
   };
+
   useEffect(() => {
     if (isMoving) {
       cancelAnimationFrame(animationFrame.current);
@@ -165,6 +178,7 @@ function Maze({
       animate();
     }
   }, [isMoving]);
+  
   return (
     <div className={`maze-container ${destinationReached ? "" : ""}`}>
               <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
