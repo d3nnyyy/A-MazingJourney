@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - cd frontend
+      - npm install  
+  build:
+    commands:
+      - echo Building the frontend...
+      - npm run build
+  post_build:
+    commands:
+      - echo Build completed successfully!
+artifacts:
+  files:
+    - '**/*' 
+  base-directory: frontend/build 
+  discard-paths: no
+
+cache:
+  paths:
+    - 'frontend/node_modules/**/*'
