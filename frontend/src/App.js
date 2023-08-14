@@ -21,7 +21,7 @@ function App() {
       },
     },
   });
-
+  const [shortestPath, setShortestPath] = useState()
   const [showStats, setShowStats] = useState(false);
   const [stats, setStats] = useState("");
   const [path, setPath] = useState([[0, 0]]);
@@ -47,6 +47,7 @@ function App() {
         size: size,
       })
       .then((res) => {
+        setShortestPath(res.data.shortestPath)
         setMaze(res.data.maze);
         setStats("");
         setX(0);
@@ -99,6 +100,7 @@ function App() {
         <div className="app-container">
           {maze ? (
             <Maze
+              shortestPath={shortestPath}
               showStats={showStats}
               setMazeStarted={setMazeStarted}
               mazeStarted={mazeStarted}
@@ -235,6 +237,7 @@ function App() {
                       setPath([[0, 0]]);
                       setListenToEvents(true);
                       setDestinationReached(false);
+                      setShowStats(false)
                     }}
                   >
                     Reset

@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button'
 function ModalWindow ({setShowStats, setX, setY, setPlayerPos, setPath, setMazeStarted, setDestinationReached, open, setOpenModal}) {
   const handleClick = () => {
-    setX(0); setY(0); setPlayerPos([0, 0]); setPath([[0,0]]); setDestinationReached(false); setMazeStarted(false) 
+    setX(0); setY(0); setPlayerPos([0, 0]); setPath([[0,0]]); setDestinationReached(false); setMazeStarted(false); setShowStats(false); 
   }
   
   const handleClose = () => setOpenModal(false);

@@ -31,8 +31,18 @@
   }
 
   .visited-cell {
-    background-color: #e3940b;
-    border: 5px solid black;
+    background-color: #e3940b !important;
+    outline: 1px solid gray !important;
+  }
+
+  .best-cell {
+    background-color: #5ae30b !important;
+    outline: 1px solid gray !important;
+  }
+
+  .visited-best-cell {
+    outline: 1px solid gray !important;
+    background: linear-gradient(to bottom, #e3940b, #d4a800, #bbbd00, #96d100, #5ae30b)
   }
 
   .wall {

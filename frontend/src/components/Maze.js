@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 function Maze({
+  shortestPath,
   showStats,
   setMazeStarted,
   mazeStarted,
@@ -26,6 +27,27 @@ function Maze({
   setY,
 }) {
   const showStatsRef = useRef(showStats)
+
+  function containsSubArray(mainArray, subArray) {
+    return mainArray.some(item => JSON.stringify(item) === JSON.stringify(subArray));
+  }
+
+  function cellStyleCheck(arr, userPath, bestPath) {
+    if (containsSubArray(userPath, arr) && containsSubArray(bestPath, arr)) {
+      return "visited-best-cell"
+    }
+    else if (containsSubArray(userPath, arr) && !containsSubArray(bestPath, arr))
+      {
+        return "visited-cell"
+      }
+    else if (!containsSubArray(userPath, arr) && containsSubArray(bestPath, arr)){
+      return "best-cell"
+    }
+    else{
+      return ''
+    }
+    }
+  
 
   useEffect(() => {
     showStatsRef.current = showStats;
@@ -220,7 +242,8 @@ function Maze({
                 }
                 ${(rowIndex === 0 && cellIndex === maze.length - 1) ? 'rounded-top-right' : ''}
                 ${(rowIndex === maze.length - 1 && cellIndex === 0) ? 'rounded-bottom-left' : ''}
-                ${(showStatsRef.current ? console.log(path.includes([rowIndex+1, cellIndex+1])) : '')}
+                ${showStats ? cellStyleCheck([cellIndex, rowIndex], path, shortestPath) : ''}
+
                 `}
               >
                 {rowIndex === 0 && cellIndex === 0 && (
