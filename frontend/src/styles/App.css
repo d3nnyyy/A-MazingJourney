@@ -5,10 +5,12 @@
 }
 
 .app-container {
+  margin-left: 4rem;
+  margin-right: 4rem;
   display: flex;
   height: 100%;
   width: 100%;
-  justify-content: space-evenly
+  /* justify-content: space-evenly */
 }
 
 .input-container {
@@ -17,9 +19,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2.5rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
 }
 
 .hidden {

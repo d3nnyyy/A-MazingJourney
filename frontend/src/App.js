@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import ModalWindow from "./components/ModalWindow";
 import { Slider, Box, Typography, Tooltip, Button, Switch } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-import axios from "axios";
+import axios from "axios"; 
 import getStats from "./functions/stats";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useWindowDimensions from "./functions/useWindowDimensions";
+import Start from "./components/Start";
 function App() {
   const theme = createTheme({
     palette: {
@@ -24,6 +25,7 @@ function App() {
 
   const { height, width } = useWindowDimensions()
 
+  const [gameStarted, setGameStarted] = useState(false)
   const [showVisitedCells, setShowVisitedCells] = useState(true)
   const [showBestCells, setShowBestCells] = useState(true)
   const [shortestPath, setShortestPath] = useState()
@@ -131,7 +133,7 @@ function App() {
           ) : (
             <Logo />
           )}
-          <div className="input-container">
+          {gameStarted ? <div className='input-container'>
             <Box
               sx={
                 mazeStarted
@@ -278,7 +280,7 @@ function App() {
               </motion.div>
             )}
             {stats && getStats(stats)}
-          </div>
+          </div> : <Start setGameStarted={setGameStarted}/>}
         </div>
       </ThemeProvider>
     </div>
