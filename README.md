@@ -25,8 +25,13 @@ Feel free to test the game at our [website](http://a-mazing-journey.s3-website.e
   - Mockito
   - AWS Elastic Beanstalk
 
-  #### Algortihm: 
+  ### Algorithms: 
 
+  There are two main algorithms used:
+  1. The first algorithm is used for maze generating. It is a randomized depth-first search.
+     It goes through all the possible cells in unfilled maze, creating paths in random directions, until it fills every single cell. After that there is an algorithm that creates 'circles', which are actually just for making more possible paths from start to finish.
+  2. The second algorithm is used for maze solving. It is a breadth-first search.
+     It goes through all the cells and all the passages one-by-one, filling cells with distances from current cell to start. It does that until it reaches the finish. After that the algorithm goes from finish to start, choosing the cell with the shortest distance to the start each time. That's how the shortest path is found.
 
   
   ### Frontend
