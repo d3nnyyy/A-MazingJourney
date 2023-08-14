@@ -1,5 +1,6 @@
 .maze-container {
-    margin: 1rem;
+    box-sizing: border-box;
+    margin: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;   
@@ -25,9 +26,9 @@
 
   .absolute-position {
     position: absolute; 
-    top: 350px; 
-    left: 330px; 
     z-index: 999;
+    width: auto;
+    height: auto;
   }
 
   .visited-cell {

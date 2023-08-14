@@ -29,29 +29,36 @@ function Maze({
   setX,
   setY,
 }) {
-  const showStatsRef = useRef(showStats)
+  const showStatsRef = useRef(showStats);
 
   function containsSubArray(mainArray, subArray) {
-    return mainArray.some(item => JSON.stringify(item) === JSON.stringify(subArray));
+    return mainArray.some(
+      (item) => JSON.stringify(item) === JSON.stringify(subArray)
+    );
   }
 
   function cellStyleCheck(cell, row, userPath, bestPath) {
-    if ((containsSubArray(userPath, [cell, row]) && containsSubArray(bestPath, [row, cell]))) {
-      return "visited-best-cell"
+    if (
+      containsSubArray(userPath, [cell, row]) &&
+      containsSubArray(bestPath, [row, cell])
+    ) {
+      return "visited-best-cell";
+    } else if (
+      containsSubArray(userPath, [cell, row]) &&
+      !containsSubArray(bestPath, [row, cell])
+    ) {
+      return "visited-cell";
+    } else if (
+      !containsSubArray(userPath, [cell, row]) &&
+      containsSubArray(bestPath, [row, cell])
+    ) {
+      return "best-cell";
+    } else {
+      return "";
     }
-    else if ((containsSubArray(userPath, [cell, row]) && !containsSubArray(bestPath, [row, cell])))
-      {
-        return "visited-cell"
-      }
-    else if ((!containsSubArray(userPath, [cell, row]) && containsSubArray(bestPath, [row, cell]))){
-      return "best-cell"
-    }
-    else{
-      return ''
-    }
-    }
-  
-    const { height, width } = useWindowDimensions()
+  }
+
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     showStatsRef.current = showStats;
@@ -204,57 +211,73 @@ function Maze({
       animate();
     }
   }, [isMoving]);
-  
+
   return (
     <div className={`maze-container ${destinationReached ? "" : ""}`}>
-        <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
-          <motion.div
-            initial={{ opacity: 0.5, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+      <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
+        <motion.div
+          initial={{ opacity: 0.5, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Button
+            size="large"
+            variant="contained"
+            color="secondary"
+            sx={{ m: 3, color: "white" }}
+            onClick={() => {
+              setListenToEvents((listenToEvents) => !listenToEvents);
+              setMazeStarted((mazeStarted) => !mazeStarted);
+            }}
           >
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              sx={{ m: 3, color:"white" }}
-              onClick={() => {
-                setListenToEvents((listenToEvents) => !listenToEvents);
-                setMazeStarted((mazeStarted) => !mazeStarted);
-              }}
-            >
-              Start
-            </Button>
-          </motion.div>
-        </div>
+            Start
+          </Button>
+        </motion.div>
+      </div>
       <div className="rows">
         {maze.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((cell, cellIndex) => (
               <div
                 style={{
-                  width: `${(height*0.8) / maze.length}px`,
-                  height: `${(height*0.8) / maze.length}px`,
+                  width: `${(height * 0.8) / maze.length}px`,
+                  height: `${(height * 0.8) / maze.length}px`,
                 }}
                 key={cellIndex}
                 className={`cell ${cell === true ? "wall" : "path"} ${
                   mazeStarted ? "" : "blur"
-                } ${rowIndex === 0 && cellIndex === 0 ? "start rounded-top-left" : ""} ${
+                } ${
+                  rowIndex === 0 && cellIndex === 0
+                    ? "start rounded-top-left"
+                    : ""
+                } ${
                   rowIndex === maze.length - 1 && cellIndex === maze.length - 1
                     ? "end rounded-bottom-right"
                     : ""
                 }
-                ${(rowIndex === 0 && cellIndex === maze.length - 1) ? 'rounded-top-right' : ''}
-                ${(rowIndex === maze.length - 1 && cellIndex === 0) ? 'rounded-bottom-left' : ''}
-                ${showStats ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath) : ''}
+                ${
+                  rowIndex === 0 && cellIndex === maze.length - 1
+                    ? "rounded-top-right"
+                    : ""
+                }
+                ${
+                  rowIndex === maze.length - 1 && cellIndex === 0
+                    ? "rounded-bottom-left"
+                    : ""
+                }
+                ${
+                  showStats
+                    ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath)
+                    : ""
+                }
 
                 `}
               >
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
                     style={{
-                      width: `${height*0.4 / maze.length}px`,
-                      height: `${height*0.4 / maze.length}px`,
+                      width: `${(height * 0.4) / maze.length}px`,
+                      height: `${(height * 0.4) / maze.length}px`,
                     }}
                     className="img-spongebob"
                     initial={{ opacity: 0, scale: 0.5 }}
