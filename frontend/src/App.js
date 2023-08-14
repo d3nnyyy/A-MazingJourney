@@ -2,13 +2,14 @@ import "./styles/App.css";
 import { useState } from "react";
 import Maze from "./components/Maze";
 import Logo from "./components/Logo";
-import { m, motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import ModalWindow from "./components/ModalWindow";
 import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import getStats from "./functions/stats";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, styled} from '@mui/material/styles';
+
 function App() {
   const theme = createTheme({
     palette: {
@@ -20,6 +21,18 @@ function App() {
       }
     }
   })
+  const StyledSlider=styled(Slider)({
+    '& .MuiSlider-markLabel[data-index="0"]': {
+      transform: "translateX(0%)",
+      color:"white"
+    },
+    '& .MuiSlider-markLabel[data-index="1"]': {
+      transform: "translateX(-100%)",
+      color:"white"
+    }
+  })
+
+  
   const [showStats, setShowStats] = useState(false)
   const [stats, setStats] = useState('')
   const [path, setPath] = useState([[0, 0]]);
@@ -146,7 +159,7 @@ function App() {
                     />
                   </Tooltip>
                 </Box>
-                <Slider
+                <StyledSlider
                   defaultValue={5}
                   min={5}
                   max={15}
@@ -172,7 +185,7 @@ function App() {
                     />
                   </Tooltip>
                 </Box>
-                <Slider
+                <StyledSlider
                   defaultValue={5}
                   min={1}
                   max={10}
@@ -183,6 +196,7 @@ function App() {
                   value={difficulty}
                   onChange={handleDifficultyChange}
                   color="secondary"
+                  sx = {{markLabelActive:{color:"white"}}}
                 />
               </Box>
               {maze ? (
@@ -196,7 +210,7 @@ function App() {
                       <Button
                         variant="contained"
                         color="secondary"
-                        sx={{ m: 3 }}
+                        sx={{ m: 3, color:"white" }}
                         onClick={handleSubmit}
                       >
                         Regenerate
@@ -212,7 +226,7 @@ function App() {
                     <Button
                       variant="contained"
                       color="secondary"
-                      sx={{ m: 3 }}
+                      sx={{ m: 3, color:"white" }}
                       onClick={() => {
                         setStats('');
                         setX(0);
@@ -235,7 +249,7 @@ function App() {
                   <Button
                     variant="contained"
                     color="secondary"
-                    sx={{ m: 3 }}
+                    sx={{ m: 3, color:"white" }}
                     onClick={handleSubmit}
                   >
                     Generate maze

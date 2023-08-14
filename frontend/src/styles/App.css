@@ -12,6 +12,7 @@
 }
 
 .input-container {
+  color: white;
   display: flex;
   flex-direction: column;
   /* margin: 10rem; */

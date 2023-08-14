@@ -90,6 +90,7 @@ function Maze({
     switch (event.code) {
       case "KeyW":
       case "ArrowUp":
+        event.preventDefault();
         if (
           playerPosRef.current[1] === 0 ||
           mazeRef.current[playerPosRef.current[1] - 1][playerPosRef.current[0]]
@@ -105,6 +106,7 @@ function Maze({
         break;
       case "KeyS":
       case "ArrowDown":
+        event.preventDefault();
         if (
           playerPosRef.current[1] === mazeRef.current.length - 1 ||
           mazeRef.current[playerPosRef.current[1] + 1][playerPosRef.current[0]]
@@ -175,7 +177,7 @@ function Maze({
               size="large"
               variant="contained"
               color="secondary"
-              sx={{ m: 3 }}
+              sx={{ m: 3, color:"white" }}
               onClick={() => {
                 setListenToEvents((listenToEvents) => !listenToEvents);
                 setMazeStarted((mazeStarted) => !mazeStarted);
