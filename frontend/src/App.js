@@ -8,7 +8,7 @@ import { Slider, Box, Typography, Tooltip, Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import getStats from "./functions/stats";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
   const theme = createTheme({
@@ -19,17 +19,6 @@ function App() {
       secondary: {
         main: "#0be394",
       },
-    },
-  });
-
-  const StyledSlider = styled(Slider)({
-    '& .MuiSlider-markLabel[data-index="0"]': {
-      transform: "translateX(0%)",
-      color: "white",
-    },
-    '& .MuiSlider-markLabel[data-index="1"]': {
-      transform: "translateX(-100%)",
-      color: "white",
     },
   });
 
@@ -155,7 +144,7 @@ function App() {
                   />
                 </Tooltip>
               </Box>
-              <StyledSlider
+              <Slider
                 defaultValue={5}
                 min={5}
                 max={15}
@@ -166,6 +155,14 @@ function App() {
                 value={size}
                 onChange={handleSizeChange}
                 color="secondary"
+                sx ={{'& .MuiSlider-markLabel'
+                :{
+                  color:"white",
+                },
+                '& .MuiSlider-markLabelActive':{
+                  color:"white"
+                }
+              }}
               />
               <Box sx={{ display: "flex" }}>
                 <Typography>Choose the difficulty of the maze:</Typography>
@@ -181,7 +178,7 @@ function App() {
                   />
                 </Tooltip>
               </Box>
-              <StyledSlider
+              <Slider
                 defaultValue={5}
                 min={1}
                 max={10}
@@ -192,7 +189,14 @@ function App() {
                 value={difficulty}
                 onChange={handleDifficultyChange}
                 color="secondary"
-                sx={{ markLabelActive: { color: "white" } }}
+                sx ={{'& .MuiSlider-markLabel'
+                :{
+                  color:"white",
+                },
+                '& .MuiSlider-markLabelActive':{
+                  color:"white"
+                }
+              }}
               />
             </Box>
             {maze ? (
