@@ -1,5 +1,6 @@
 package ua.amazingjourney.backend.tools;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ua.amazingjourney.backend.exception.MazeGenerationException;
 import ua.amazingjourney.backend.model.MazeInitializer;
@@ -17,6 +18,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(9, maze.length);
         assertEquals(9, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -42,6 +45,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(1, maze.length);
         assertEquals(1, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -53,6 +58,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(1, maze.length);
         assertEquals(1, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -64,6 +71,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(19, maze.length);
         assertEquals(19, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -75,6 +84,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(19, maze.length);
         assertEquals(19, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -86,6 +97,8 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(3, maze.length);
         assertEquals(3, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
 
     @Test
@@ -97,5 +110,14 @@ class MazeGeneratorTest {
         assertNotNull(maze);
         assertEquals(3, maze.length);
         assertEquals(3, maze[0].length);
+
+        System.out.println(MazeConverter.convertToMazeString(maze));
     }
+
+    @AfterEach
+    public void breakBetweenMazes() {
+        System.out.println("Next maze");
+        System.out.println();
+    }
+
 }

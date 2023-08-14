@@ -108,12 +108,20 @@ public class MazeGenerator {
         visitedCells.addFirst(new Cell(0, 0));
         maze[0][0] = false;
 
+        boolean canLastMove = true;
+
         //We go until we fill an entire array
         while (!visitedCells.isEmpty()) {
             //Choosing random way
             //1 - top, 2 - right, 3 - down, 4 - left
 
-            Cell currentCell = visitedCells.getFirst();
+            Cell currentCell;
+            if (canLastMove) {
+                currentCell = visitedCells.getFirst();
+            }
+            else {
+                currentCell = visitedCells.get(randomGenerator.nextInt(visitedCells.size()));
+            }
 
             //Defining accessible ways to pick from
             ArrayList<Integer> possibleWays = getPossibleWays(currentCell, maze);
@@ -146,10 +154,13 @@ public class MazeGenerator {
                         visitedCells.addFirst(new Cell(currentCell.getICoordinate(), currentCell.getJCoordinate() - 2));
                     }
                 }
+
+                canLastMove = true;
             }
             //If we don't have where to go from current cell, then we delete it from visited cells
             else {
-                visitedCells.pollFirst();
+                visitedCells.remove(currentCell);
+                canLastMove = false;
             }
         }
     }
