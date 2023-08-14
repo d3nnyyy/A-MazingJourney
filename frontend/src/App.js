@@ -264,20 +264,38 @@ function App() {
                 </>
               )
             ) : (
-              <motion.div
-                initial={{ opacity: 0.5, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.25 }}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ m: 3, color: "white" }}
-                  onClick={handleSubmit}
+              <div style={{display:"flex"}}>
+                <motion.div
+                  initial={{ opacity: 0.5, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.25 }}
                 >
-                  Generate maze
-                </Button>
-              </motion.div>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ m: 3, color: "white" }}
+                    onClick={handleSubmit}
+                  >
+                    Generate maze
+                  </Button>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0.5, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ m: 3, color: "white" }}
+                    onClick={() => {
+                      setGameStarted(gameStarted => !gameStarted)
+                    }}
+                  >
+                    Home
+                  </Button>
+                </motion.div>
+              </div>
             )}
             {stats && getStats(stats)}
           </div> : <Start setGameStarted={setGameStarted}/>}
