@@ -4,6 +4,7 @@ import spongebobImage from "../assets/spongebob.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
+import useWindowDimensions from "../functions/useWindowDimensions";
 function Maze({
   showStats,
   setMazeStarted,
@@ -26,6 +27,8 @@ function Maze({
   setY,
 }) {
   const showStatsRef = useRef(showStats)
+
+  const { height, width } = useWindowDimensions()
 
   useEffect(() => {
     showStatsRef.current = showStats;
@@ -178,10 +181,12 @@ function Maze({
       animate();
     }
   }, [isMoving]);
+
   
+
   return (
     <div className={`maze-container ${destinationReached ? "" : ""}`}>
-              <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
+              <div  style={{top:width/5, left: width/5}} className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
           <motion.div
             initial={{ opacity: 0.5, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -207,8 +212,8 @@ function Maze({
             {row.map((cell, cellIndex) => (
               <div
                 style={{
-                  width: `${700 / maze.length}px`,
-                  height: `${700 / maze.length}px`,
+                  width: `${(width / 2.5) / maze.length}px`,
+                  height: `${(width / 2.5) / maze.length}px`,
                 }}
                 key={cellIndex}
                 className={`cell ${cell === true ? "wall" : "path"} ${
@@ -226,8 +231,8 @@ function Maze({
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
                     style={{
-                      width: `${350 / maze.length}px`,
-                      height: `${350 / maze.length}px`,
+                      width: `${(width / 5) / maze.length}px`,
+                      height: `${(width / 5) / maze.length}px`,
                     }}
                     className="img-spongebob"
                     initial={{ opacity: 0, scale: 0.5 }}

@@ -6,9 +6,10 @@
 
 .app-container {
   display: flex;
-  outline: 1px solid red;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .input-container {
