@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useWindowDimensions from "./functions/useWindowDimensions";
 import Start from "./components/Start";
 function App() {
-  const theme = createTheme({
+const theme = createTheme({
     palette: {
       primary: {
         main: "#e30b5a",
@@ -21,6 +21,16 @@ function App() {
         main: "#0be394",
       },
     },
+    typography: {
+      fontFamily: [
+        'Exo',
+        'Orbitron',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto'
+      ].join(','),
+    }
   });
 
   const { height, width } = useWindowDimensions()
