@@ -1,8 +1,14 @@
 .logo {
-    /* width: 700px;
-    height: 700px; */
+    margin: 3rem;
+    width: 700px;
+    height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 2px;
+}
+
+.logo-image {
+    width: 600px;
+    height: 600px;
 }

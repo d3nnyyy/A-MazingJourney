@@ -25,6 +25,8 @@
 
   .absolute-position {
     position: absolute; 
+    top: 350px; 
+    left: 330px; 
     z-index: 999;
   }
 

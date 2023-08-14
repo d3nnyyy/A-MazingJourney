@@ -9,7 +9,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import getStats from "./functions/stats";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import useWindowDimensions from "./functions/useWindowDimensions";
+
 function App() {
   const theme = createTheme({
     palette: {
@@ -21,8 +21,6 @@ function App() {
       },
     },
   });
-
-  const { height, width } = useWindowDimensions()
 
   const StyledSlider = styled(Slider)({
     '& .MuiSlider-markLabel[data-index="0"]': {
@@ -64,7 +62,7 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance((width / 2.5) / res.data.maze.length);
+        setMoveDistance(700 / res.data.maze.length);
         setPlayerPos([0, 0]);
       })
       .catch((err) => console.log(err));
