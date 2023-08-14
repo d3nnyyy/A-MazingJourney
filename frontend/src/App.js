@@ -18,11 +18,13 @@ const theme = createTheme({
         main: "#e30b5a",
       },
       secondary: {
-        main: "#0be394",
+        main: "#e30b5a",
       },
     },
     typography: {
+      fontSize: 18,
       fontFamily: [
+        'Titillium Web',
         'Exo',
         'Orbitron',
         '-apple-system',

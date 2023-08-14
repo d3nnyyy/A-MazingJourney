@@ -3,7 +3,7 @@ function getStats(percentage) {
         return `You path was ${Math.round((percentage - 100) * 100) / 100}% longer than the shortest path.`
     }
     else {
-        return 'Your path was the shortest path!'
+        return 'Your path has the same length as the shortest path!'
     }
 }
 
