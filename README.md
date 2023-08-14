@@ -71,7 +71,7 @@ You can access the A-Mazing Journey game through the provided URL. You can inter
 
 ## Authors
 
-- [Tsebulia Denys](https://github.com/d3nnyyy): Backend developer. Project Lead.
+- [Tsebulia Denys](https://github.com/d3nnyyy): Backend developer.
 - [Horak Maksym](https://github.com/hurrr1cane): Backend developer.
 - [Soloviy Nazariy](https://github.com/N1tingale): Frontend developer.
 
