@@ -3,6 +3,10 @@
     margin-right: 2rem;
     color: white;
     font-size: 18px;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+    justify-content: center;
 }
     
 

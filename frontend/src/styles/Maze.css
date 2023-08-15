@@ -43,7 +43,7 @@
 
   .visited-best-cell {
     outline: 1px solid gray !important;
-    background: linear-gradient(to bottom, #e3940b, #d4a800, #bbbd00, #96d100, #5ae30b)
+    background-color: #9fbc0b !important;
   }
 
   .wall {

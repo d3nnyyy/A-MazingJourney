@@ -4,15 +4,22 @@ import Maze from "./components/Maze";
 import Logo from "./components/Logo";
 import { motion } from "framer-motion";
 import ModalWindow from "./components/ModalWindow";
-import { Slider, Box, Typography, Tooltip, Button, Switch } from "@mui/material";
+import {
+  Slider,
+  Box,
+  Typography,
+  Tooltip,
+  Button,
+  Switch,
+} from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-import axios from "axios"; 
-import getStats from "./functions/stats";
+import axios from "axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useWindowDimensions from "./functions/useWindowDimensions";
 import Start from "./components/Start";
+import getStats from "./functions/stats";
 function App() {
-const theme = createTheme({
+  const theme = createTheme({
     palette: {
       primary: {
         main: "#e30b5a",
@@ -24,23 +31,23 @@ const theme = createTheme({
     typography: {
       fontSize: 18,
       fontFamily: [
-        'Titillium Web',
-        'Exo',
-        'Orbitron',
-        '-apple-system',
-        'BlinkMacSystemFont',
+        "Titillium Web",
+        "Exo",
+        "Orbitron",
+        "-apple-system",
+        "BlinkMacSystemFont",
         '"Segoe UI"',
-        'Roboto'
-      ].join(','),
-    }
+        "Roboto",
+      ].join(","),
+    },
   });
 
-  const { height, width } = useWindowDimensions()
+  const { height, width } = useWindowDimensions();
 
-  const [gameStarted, setGameStarted] = useState(false)
-  const [showVisitedCells, setShowVisitedCells] = useState(true)
-  const [showBestCells, setShowBestCells] = useState(true)
-  const [shortestPath, setShortestPath] = useState()
+  const [gameStarted, setGameStarted] = useState(false);
+  const [showVisitedCells, setShowVisitedCells] = useState(true);
+  const [showBestCells, setShowBestCells] = useState(true);
+  const [shortestPath, setShortestPath] = useState();
   const [showStats, setShowStats] = useState(false);
   const [stats, setStats] = useState("");
   const [path, setPath] = useState([[0, 0]]);
@@ -49,7 +56,7 @@ const theme = createTheme({
   const [destinationReached, setDestinationReached] = useState(false);
   const [listenToEvents, setListenToEvents] = useState(false);
   const [playerPos, setPlayerPos] = useState([0, 0]);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(14);
   const [difficulty, setDifficulty] = useState(5);
   const [maze, setMaze] = useState();
   const handleSizeChange = (event, value) => setSize(value);
@@ -66,12 +73,12 @@ const theme = createTheme({
         size: size,
       })
       .then((res) => {
-        setShortestPath(res.data.shortestPath)
+        setShortestPath(res.data.shortestPath);
         setMaze(res.data.maze);
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance((height*0.8) / res.data.maze.length);
+        setMoveDistance((height * 0.8) / res.data.maze.length);
         setPlayerPos([0, 0]);
       })
       .catch((err) => console.log(err));
@@ -79,12 +86,12 @@ const theme = createTheme({
 
   const sizeMarks = [
     {
-      value: 5,
-      label: "5",
+      value: 8,
+      label: "8",
     },
     {
-      value: 15,
-      label: "15",
+      value: 20,
+      label: "20",
     },
   ];
 
@@ -104,6 +111,9 @@ const theme = createTheme({
       <ThemeProvider theme={theme}>
         {destinationReached && (
           <ModalWindow
+            stats={stats}
+            setStats={setStats}
+            setListenToEvents={setListenToEvents}
             setShowStats={setShowStats}
             setMazeStarted={setMazeStarted}
             setDestinationReached={setDestinationReached}
@@ -145,90 +155,266 @@ const theme = createTheme({
           ) : (
             <Logo />
           )}
-          {gameStarted ? <div className='input-container'>
-            <Box
-              sx={
-                mazeStarted
-                  ? { display: "none" }
-                  : { display: "block", width: "25vw" }
-              }
-            >
-              <Box sx={{ display: "flex" }}>
-                <Typography>Choose the size of the maze:</Typography>
-                <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
-                  <InfoIcon
-                    sx={{
-                      width: "15px",
-                      height: "15px",
-                      color: "#36454F",
-                      ml: 0.5,
-                      mt: 0.5,
-                    }}
-                  />
-                </Tooltip>
-              </Box>
-              <Slider
-                defaultValue={5}
-                min={5}
-                max={15}
-                step={1}
-                marks={sizeMarks}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-                value={size}
-                onChange={handleSizeChange}
-                color="secondary"
-                sx ={{'& .MuiSlider-markLabel'
-                :{
-                  color:"white",
-                },
-                '& .MuiSlider-markLabelActive':{
-                  color:"white"
+          {gameStarted ? (
+            <div className="input-container">
+              {!mazeStarted && <h1>Start the game by generating a maze</h1>}
+              <Box
+                sx={
+                  mazeStarted
+                    ? { display: "none" }
+                    : { display: "block", width: "25vw" }
                 }
-              }}
-              />
-              <Box sx={{ display: "flex" }}>
-                <Typography>Choose the difficulty of the maze:</Typography>
-                <Tooltip title="The higher the difficulty of the maze, the more complex will the generated maze be.">
-                  <InfoIcon
-                    sx={{
-                      width: "15px",
-                      height: "15px",
-                      color: "#36454F",
-                      ml: 0.5,
-                      mt: 0.5,
-                    }}
-                  />
-                </Tooltip>
+              >
+                <Box sx={{ display: "flex" }}>
+                  <Typography>Choose the size of the maze:</Typography>
+                  <Tooltip title="The maze is generated as an n*n square, where n is the size of the maze.">
+                    <InfoIcon
+                      sx={{
+                        width: "15px",
+                        height: "15px",
+                        color: "#36454F",
+                        ml: 0.5,
+                        mt: 0.5,
+                      }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Slider
+                  defaultValue={14}
+                  min={8}
+                  max={20}
+                  step={1}
+                  marks={sizeMarks}
+                  aria-label="Default"
+                  valueLabelDisplay="auto"
+                  value={size}
+                  onChange={handleSizeChange}
+                  color="secondary"
+                  sx={{
+                    "& .MuiSlider-markLabel": {
+                      color: "white",
+                    },
+                    "& .MuiSlider-markLabelActive": {
+                      color: "white",
+                    },
+                  }}
+                />
+                <Box sx={{ display: "flex" }}>
+                  <Typography>Choose the difficulty of the maze:</Typography>
+                  <Tooltip title="The higher the difficulty of the maze, the more complex will the generated maze be.">
+                    <InfoIcon
+                      sx={{
+                        width: "15px",
+                        height: "15px",
+                        color: "#36454F",
+                        ml: 0.5,
+                        mt: 0.5,
+                      }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Slider
+                  defaultValue={5}
+                  min={1}
+                  max={10}
+                  step={1}
+                  marks={difficultyMarks}
+                  aria-label="Default"
+                  valueLabelDisplay="auto"
+                  value={difficulty}
+                  onChange={handleDifficultyChange}
+                  color="secondary"
+                  sx={{
+                    "& .MuiSlider-markLabel": {
+                      color: "white",
+                    },
+                    "& .MuiSlider-markLabelActive": {
+                      color: "white",
+                    },
+                  }}
+                />
               </Box>
-              <Slider
-                defaultValue={5}
-                min={1}
-                max={10}
-                step={1}
-                marks={difficultyMarks}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-                value={difficulty}
-                onChange={handleDifficultyChange}
-                color="secondary"
-                sx ={{'& .MuiSlider-markLabel'
-                :{
-                  color:"white",
-                },
-                '& .MuiSlider-markLabelActive':{
-                  color:"white"
-                }
-              }}
-              />
-            </Box>
-            {maze ? (
-              !mazeStarted ? (
-                <div className="regenerate-start-container">
+              {maze ? (
+                !mazeStarted ? (
+                  <div className="regenerate-start-container">
+                    <motion.div
+                      initial={{ opacity: 0.5, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{ m: 3, color: "white" }}
+                        onClick={handleSubmit}
+                      >
+                        Regenerate
+                      </Button>
+                    </motion.div>
+                  </div>
+                ) : (
+                  <div>
+                    {!showStats ? (
+                      <h1>A-Mazing Journey</h1>
+                    ) : (
+                      <h1>Your stats</h1>
+                    )}
+                    {!showStats ? (
+                      <p style={{ fontSize: "18px" }}>
+                        Try to get to the end of the maze in as few steps as
+                        possible!
+                      </p>
+                    ) : (
+                      <div style={{ fontSize: "18px" }}>
+                        <p style={{ marginTop: "2rem" }}>
+                          Your path length: {path.length} cells
+                        </p>
+                        <div
+                          style={{
+                            height: "4px",
+                            width: `${path.length * 10}px`,
+                            backgroundColor: "#e3940b",
+                          }}
+                        />
+                        <p style={{ marginTop: "2rem" }}>
+                          Best/Shortest path length: {shortestPath.length} cells
+                        </p>
+                        <div
+                          style={{
+                            marginBottom: "1rem",
+                            height: "4px",
+                            width: `${shortestPath.length * 10}px`,
+                            backgroundColor: "#5ae30b",
+                          }}
+                        />
+                        <p style={{ marginTop: "2rem" }}>{getStats(stats)}</p>
+                      </div>
+                    )}
+                    {showStats && (
+                      <Box sx={{ display: "flex" }}>
+                        <Typography>
+                          Show only your path
+                          <Switch
+                            color="secondary"
+                            onClick={() => {
+                              setShowBestCells((value) => !value);
+                            }}
+                          />
+                        </Typography>
+                        <Typography>
+                          Show only best path
+                          <Switch
+                            color="secondary"
+                            onClick={() => {
+                              setShowVisitedCells((value) => !value);
+                            }}
+                          />
+                        </Typography>
+                      </Box>
+                    )}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0.5, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {!showStats ? (
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            sx={{ m: 1, color: "white" }}
+                            onClick={() => {
+                              setStats("");
+                              setX(0);
+                              setY(0);
+                              setPlayerPos([0, 0]);
+                              setPath([[0, 0]]);
+                              setListenToEvents(true);
+                              setDestinationReached(false);
+                              setShowStats(false);
+                            }}
+                          >
+                            Reset
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            sx={{ m: 1, color: "white" }}
+                            onClick={() => {}}
+                          >
+                            Share
+                          </Button>
+                        )}
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0.5, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          sx={{ mt: 1, mb: 1, mr: 1, color: "white" }}
+                          onClick={() => {
+                            setStats("");
+                            setX(0);
+                            setY(0);
+                            setPlayerPos([0, 0]);
+                            setPath([[0, 0]]);
+                            setListenToEvents(false);
+                            setDestinationReached(false);
+                            setShowStats(false);
+                            setMaze();
+                            setMazeStarted(false);
+                          }}
+                        >
+                          Try another
+                        </Button>
+                      </motion.div>
+                      {showStats && (
+                        <motion.div
+                          initial={{ opacity: 0.5, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            sx={{ mt: 1, mb: 1, mr: 2, color: "white" }}
+                            onClick={() => {
+                              setStats("");
+                              setX(0);
+                              setY(0);
+                              setPlayerPos([0, 0]);
+                              setPath([[0, 0]]);
+                              setListenToEvents(false);
+                              setDestinationReached(false);
+                              setShowStats(false);
+                              setMaze();
+                              setMazeStarted(false);
+                              setGameStarted(false);
+                            }}
+                          >
+                            Home
+                          </Button>
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div style={{ display: "flex", flexDirection: "row-reverse" }}>
                   <motion.div
                     initial={{ opacity: 0.5, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.25 }}
                   >
                     <Button
                       variant="contained"
@@ -236,81 +422,31 @@ const theme = createTheme({
                       sx={{ m: 3, color: "white" }}
                       onClick={handleSubmit}
                     >
-                      Regenerate
+                      Generate maze
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0.5, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{ m: 3, color: "white" }}
+                      onClick={() => {
+                        setGameStarted((gameStarted) => !gameStarted);
+                      }}
+                    >
+                      Home
                     </Button>
                   </motion.div>
                 </div>
-              ) : (
-                <>
-                <Box sx={{display:'flex'}}>
-                <Typography>Show only your path
-                  <Switch color="secondary"  onClick={() => {setShowBestCells(value => !value)}}/>
-                </Typography>
-                <Typography>Show only best path
-                  <Switch color="secondary" onClick={() => {setShowVisitedCells(value => !value)}}/>
-                </Typography>
-                </Box>
-                <motion.div
-                  initial={{ opacity: 0.5, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 3, color: "white" }}
-                    onClick={() => {
-                      setStats("");
-                      setX(0);
-                      setY(0);
-                      setPlayerPos([0, 0]);
-                      setPath([[0, 0]]);
-                      setListenToEvents(true);
-                      setDestinationReached(false);
-                      setShowStats(false)
-                    }}
-                  >
-                    Reset
-                  </Button>
-                </motion.div>
-                </>
-              )
-            ) : (
-              <div style={{display:"flex"}}>
-                <motion.div
-                  initial={{ opacity: 0.5, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 3, color: "white" }}
-                    onClick={handleSubmit}
-                  >
-                    Generate maze
-                  </Button>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0.5, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 3, color: "white" }}
-                    onClick={() => {
-                      setGameStarted(gameStarted => !gameStarted)
-                    }}
-                  >
-                    Home
-                  </Button>
-                </motion.div>
-              </div>
-            )}
-            {stats && getStats(stats)}
-          </div> : <Start setGameStarted={setGameStarted}/>}
+              )}
+            </div>
+          ) : (
+            <Start setGameStarted={setGameStarted} />
+          )}
         </div>
       </ThemeProvider>
     </div>
