@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Maze from "./components/Maze";
 import Logo from "./components/Logo";
 import { motion } from "framer-motion";
@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useWindowDimensions from "./functions/useWindowDimensions";
 import Start from "./components/Start";
 import getStats from "./functions/stats";
+import { useContainerDimensions } from "./functions/useContainerDimensions";
 function App() {
   const theme = createTheme({
     palette: {
@@ -43,7 +44,8 @@ function App() {
   });
 
   const { height, width } = useWindowDimensions();
-
+  const divRef = useRef(null)
+  const { containerWidth, containerHeight } = useContainerDimensions(divRef)
   const [gameStarted, setGameStarted] = useState(false);
   const [showVisitedCells, setShowVisitedCells] = useState(true);
   const [showBestCells, setShowBestCells] = useState(true);
@@ -253,7 +255,7 @@ function App() {
                     </motion.div>
                   </div>
                 ) : (
-                  <div>
+                  <div ref={divRef}>
                     {!showStats ? (
                       <h1>A-Mazing Journey</h1>
                     ) : (
@@ -272,7 +274,7 @@ function App() {
                         <div
                           style={{
                             height: "4px",
-                            width: `${path.length * 10}px`,
+                            width: `${containerWidth}px`,
                             backgroundColor: "#e3940b",
                           }}
                         />
@@ -283,7 +285,7 @@ function App() {
                           style={{
                             marginBottom: "1rem",
                             height: "4px",
-                            width: `${shortestPath.length * 10}px`,
+                            width: `${(shortestPath.length/path.length)*containerWidth}px`,
                             backgroundColor: "#5ae30b",
                           }}
                         />
