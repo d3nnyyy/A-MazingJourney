@@ -46,7 +46,6 @@ function App() {
   const { height, width } = useWindowDimensions();
   const divRef = useRef(null)
   const dimensions = useContainerDimensions(divRef)
-  console.log(dimensions)
   const [gameStarted, setGameStarted] = useState(false);
   const [showVisitedCells, setShowVisitedCells] = useState(true);
   const [showBestCells, setShowBestCells] = useState(true);

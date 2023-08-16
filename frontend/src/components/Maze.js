@@ -1,6 +1,6 @@
 import "../styles/Maze.css";
 import { motion } from "framer-motion";
-import spongebobImage from "../assets/spongebob.png";
+import characterImage from "../assets/Character.png";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
@@ -94,6 +94,19 @@ function Maze({
     };
     // eslint-disable-next-line
   }, [listenToEvents]);
+
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setX(pathRef.current[0]*moveDistanceRef.current)
+  //     setY(pathRef.current[1]*moveDistanceRef.current)
+  //     console.log("window resized!")
+  //   }
+
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+
+
 
   const animationFrame = useRef(null);
   const lastKeyPressTime = useRef(0);
@@ -276,15 +289,15 @@ function Maze({
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
                     style={{
-                      width: `${(height * 0.4) / maze.length}px`,
-                      height: `${(height * 0.4) / maze.length}px`,
+                      width: `${(height * 0.65) / maze.length}px`,
+                      height: `${(height * 0.65) / maze.length}px`,
                     }}
                     className="img-spongebob"
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1, x: x, y: y }}
                     transition={{ type: "tween" }}
-                    src={spongebobImage}
-                    alt="spongebob"
+                    src={characterImage}
+                    alt="character"
                   />
                 )}
               </div>

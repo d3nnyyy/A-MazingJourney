@@ -56,7 +56,7 @@
   }
   
   .img-spongebob {
-    outline: 1px solid red;
+    margin:auto;
     position: absolute;
     z-index: 999;
   }
