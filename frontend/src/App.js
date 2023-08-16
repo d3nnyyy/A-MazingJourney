@@ -286,7 +286,7 @@ function App() {
                           style={{
                             marginBottom: "1rem",
                             height: "4px",
-                            width: `${(shortestPath.length/path.length)*dimensions.width}px`,
+                            width: `${dimensions.width*(shortestPath.length/path.length)}px`,
                             backgroundColor: "#5ae30b",
                           }}
                         />
