@@ -43,7 +43,7 @@ function App() {
     },
   });
 
-  const { height, width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const divRef = useRef(null)
   const dimensions = useContainerDimensions(divRef)
   const [gameStarted, setGameStarted] = useState(false);
@@ -80,13 +80,22 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance((height * 0.8) / res.data.maze.length);
+        setMoveDistance(changeMoveDistance(width) / res.data.maze.length);
         setPlayerPos([0, 0]);
         setShowBestCells(true);
         setShowVisitedCells(true)
       })
       .catch((err) => console.log(err));
   };
+
+  const changeMoveDistance = (width) => {
+    if(width>1240) {
+      return "700"
+    }
+    else if (1024 < width < 1240){
+      return "500"
+    }
+  }
 
   const sizeMarks = [
     {

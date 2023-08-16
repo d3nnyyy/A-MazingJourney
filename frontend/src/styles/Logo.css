@@ -8,6 +8,30 @@
     border-radius: 2px;
 }
 
+@media (min-width:1240px) {
+    .logo {
+      width: 550px;
+      height: 550px;
+    }
+    .logo-image {
+        width: 550px;
+        height: 550px;
+      }
+  }
+  
+
+  @media (min-width:1024px) and (max-width:1240px) {
+    .logo {
+      width: 450px;
+      height: 450px;
+    }
+    .logo-image {
+        width: 450px;
+        height: 450px;
+      }
+  }
+
+
 /* .logo-image {
     width: 600px;
     height: 600px;
