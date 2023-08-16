@@ -109,6 +109,24 @@ function App() {
     },
   ];
 
+  const shareToTelegram = () => {
+
+    const userPathLength = path.length;
+    const shortestPathLength = shortestPath.length;
+    const percentage = (userPathLength / shortestPathLength) * 100;
+    const percentageDifference = Math.round((percentage - 100));
+
+    const subMessage = shortestPath === path ?
+      "I've managed to solve the maze with the shortest path. Could you do it? " :
+      `I've managed to solve the maze with the path which is ${percentageDifference}% longer than the shortest. I bet you could do it better! `
+
+    const message = subMessage + "Try it out at http://a-mazing-journey.s3-website.eu-central-1.amazonaws.com/";
+    const encodedMessage = encodeURIComponent(message);
+    const telegramShareLink = `https://t.me/share/url?url=${encodedMessage}`;
+
+    window.open(telegramShareLink, "_blank");
+  };
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -275,7 +293,7 @@ function App() {
                         <div
                           style={{
                             height: "4px",
-                            width: `${dimensions.width/2.5}px`,
+                            width: `${dimensions.width / 2.5}px`,
                             backgroundColor: "#e3940b",
                           }}
                         />
@@ -286,7 +304,7 @@ function App() {
                           style={{
                             marginBottom: "1rem",
                             height: "4px",
-                            width: `${dimensions.width/2.5*(shortestPath.length/path.length)}px`,
+                            width: `${dimensions.width / 2.5 * (shortestPath.length / path.length)}px`,
                             backgroundColor: "#5ae30b",
                           }}
                         />
@@ -350,7 +368,7 @@ function App() {
                             variant="contained"
                             color="secondary"
                             sx={{ m: 1, color: "white" }}
-                            onClick={() => {}}
+                            onClick={() => shareToTelegram()}
                           >
                             Share
                           </Button>
