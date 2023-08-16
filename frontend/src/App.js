@@ -129,7 +129,7 @@ function App() {
           />
         )}
 
-        <div className="app-container">
+        <div className="app-container" ref={divRef}>
           {maze ? (
             <Maze
               showBestCells={showBestCells}
@@ -159,7 +159,7 @@ function App() {
             <Logo />
           )}
           {gameStarted ? (
-            <div className="input-container" ref={divRef}>
+            <div className="input-container" >
               {!mazeStarted && <h1>Start the game by generating a maze</h1>}
               <Box
                 sx={
@@ -275,7 +275,7 @@ function App() {
                         <div
                           style={{
                             height: "4px",
-                            width: `${dimensions.width}px`,
+                            width: `${dimensions.width/2.5}px`,
                             backgroundColor: "#e3940b",
                           }}
                         />
@@ -286,7 +286,7 @@ function App() {
                           style={{
                             marginBottom: "1rem",
                             height: "4px",
-                            width: `${dimensions.width*(shortestPath.length/path.length)}px`,
+                            width: `${dimensions.width/2.5*(shortestPath.length/path.length)}px`,
                             backgroundColor: "#5ae30b",
                           }}
                         />
