@@ -74,7 +74,6 @@ function Maze({
 
   useEffect(() => {
     pathRef.current = path;
-    console.log(path);
   }, [path]);
 
   const moveDistanceRef = useRef(moveDistance);

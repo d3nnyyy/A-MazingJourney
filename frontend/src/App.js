@@ -45,7 +45,8 @@ function App() {
 
   const { height, width } = useWindowDimensions();
   const divRef = useRef(null)
-  const { containerWidth, containerHeight } = useContainerDimensions(divRef)
+  const dimensions = useContainerDimensions(divRef)
+  console.log(dimensions)
   const [gameStarted, setGameStarted] = useState(false);
   const [showVisitedCells, setShowVisitedCells] = useState(true);
   const [showBestCells, setShowBestCells] = useState(true);
@@ -158,7 +159,7 @@ function App() {
             <Logo />
           )}
           {gameStarted ? (
-            <div className="input-container">
+            <div className="input-container" ref={divRef}>
               {!mazeStarted && <h1>Start the game by generating a maze</h1>}
               <Box
                 sx={
@@ -255,7 +256,7 @@ function App() {
                     </motion.div>
                   </div>
                 ) : (
-                  <div ref={divRef}>
+                  <div>
                     {!showStats ? (
                       <h1>A-Mazing Journey</h1>
                     ) : (
@@ -274,7 +275,7 @@ function App() {
                         <div
                           style={{
                             height: "4px",
-                            width: `${containerWidth}px`,
+                            width: `${dimensions.width}px`,
                             backgroundColor: "#e3940b",
                           }}
                         />
@@ -285,7 +286,7 @@ function App() {
                           style={{
                             marginBottom: "1rem",
                             height: "4px",
-                            width: `${(shortestPath.length/path.length)*containerWidth}px`,
+                            width: `${(shortestPath.length/path.length)*dimensions.width}px`,
                             backgroundColor: "#5ae30b",
                           }}
                         />
