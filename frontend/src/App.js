@@ -118,7 +118,7 @@ function App() {
     const percentage = (userPathLength / shortestPathLength) * 100;
     const percentageDifference = Math.round((percentage - 100));
 
-    const subMessage = shortestPath === path ?
+    const subMessage = userPathLength === shortestPathLength ?
       "I've managed to solve the maze with the shortest path. Could you do it? " :
       `I've managed to solve the maze with the path which is ${percentageDifference}% longer than the shortest. I bet you could do it better! `
 
