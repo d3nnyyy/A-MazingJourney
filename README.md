@@ -53,7 +53,7 @@ To run the project locally for development, follow these steps:
 ### Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/d3nnyyy/ToDoListFullstack.git
+git clone https://github.com/d3nnyyy/A-MazingJourney.git
 ```
 
 ### Backend
