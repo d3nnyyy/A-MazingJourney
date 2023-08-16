@@ -6,8 +6,8 @@
 }
 
 .app-container {
-  margin-left: 10rem;
-  margin-right: 4rem;
+  margin-left: 5rem;
+  margin-right: 5rem; 
   display: flex;
   height: 100%;
   width: 100%;
@@ -29,4 +29,12 @@
 
 .regenerate-start-container {
   display: flex;
+}
+
+@media (max-width:720px) {
+  .app-container {
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
 }
