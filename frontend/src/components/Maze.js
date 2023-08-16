@@ -37,22 +37,23 @@ function Maze({
     );
   }
 
-  function cellStyleCheck(cell, row, userPath, bestPath) {
+  function cellStyleCheck(cell, row, userPath, bestPath, showVisited, showBest) {
     if (
       containsSubArray(userPath, [cell, row]) &&
       containsSubArray(bestPath, [row, cell])
     ) {
-      return "visited-best-cell";
+      return (showVisited && showBest) ? "visited-best-cell" 
+      : (showVisited ? "visited-cell" : "best-cell");
     } else if (
       containsSubArray(userPath, [cell, row]) &&
       !containsSubArray(bestPath, [row, cell])
     ) {
-      return "visited-cell";
+      return showVisited ? "visited-cell" : '';
     } else if (
       !containsSubArray(userPath, [cell, row]) &&
       containsSubArray(bestPath, [row, cell])
     ) {
-      return "best-cell";
+      return showBest ? "best-cell" : '';
     } else {
       return "";
     }
@@ -266,7 +267,7 @@ function Maze({
                 }
                 ${
                   showStats
-                    ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath)
+                    ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath, showVisitedCells, showBestCells)
                     : ""
                 }
 

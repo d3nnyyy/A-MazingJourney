@@ -83,6 +83,8 @@ function App() {
         setY(0);
         setMoveDistance((height * 0.8) / res.data.maze.length);
         setPlayerPos([0, 0]);
+        setShowBestCells(true);
+        setShowVisitedCells(true)
       })
       .catch((err) => console.log(err));
   };
@@ -316,6 +318,7 @@ function App() {
                         <Typography>
                           Show only your path
                           <Switch
+                            disabled={!showVisitedCells}
                             color="secondary"
                             onClick={() => {
                               setShowBestCells((value) => !value);
@@ -325,6 +328,7 @@ function App() {
                         <Typography>
                           Show only best path
                           <Switch
+                            disabled={!showBestCells}
                             color="secondary"
                             onClick={() => {
                               setShowVisitedCells((value) => !value);
@@ -359,6 +363,8 @@ function App() {
                               setListenToEvents(true);
                               setDestinationReached(false);
                               setShowStats(false);
+                              setShowBestCells(true);
+                              setShowVisitedCells(true)
                             }}
                           >
                             Reset
@@ -394,6 +400,8 @@ function App() {
                             setShowStats(false);
                             setMaze();
                             setMazeStarted(false);
+                            setShowBestCells(true);
+                            setShowVisitedCells(true);
                           }}
                         >
                           Try another
@@ -421,6 +429,8 @@ function App() {
                               setMaze();
                               setMazeStarted(false);
                               setGameStarted(false);
+                              setShowBestCells(true);
+                              setShowVisitedCells(true)
                             }}
                           >
                             Home
