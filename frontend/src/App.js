@@ -80,7 +80,7 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance(changeMoveDistance(width) / res.data.maze.length);
+        setMoveDistance(changeMoveDistance(width)*0.8 / res.data.maze.length);
         setPlayerPos([0, 0]);
         setShowBestCells(true);
         setShowVisitedCells(true)
@@ -193,7 +193,7 @@ function App() {
                 sx={
                   mazeStarted
                     ? { display: "none" }
-                    : { display: "block", width: "25vw" }
+                    : { display: "block", width: width > 850 ? '25vw' : '60vw' }
                 }
               >
                 <Box sx={{ display: "flex" }}>
@@ -222,6 +222,7 @@ function App() {
                   onChange={handleSizeChange}
                   color="secondary"
                   sx={{
+                    
                     "& .MuiSlider-markLabel": {
                       color: "white",
                     },
@@ -261,7 +262,7 @@ function App() {
                     },
                     "& .MuiSlider-markLabelActive": {
                       color: "white",
-                    },
+                    }
                   }}
                 />
               </Box>
@@ -398,7 +399,7 @@ function App() {
                         <Button
                           variant="contained"
                           color="secondary"
-                          sx={{ mt: 1, mb: 1, mr: 1, color: "white" }}
+                          sx={{ mt: 1, mb: 1, mr: 1, color: "white", whiteSpace:"nowrap", minWidth:"auto" }}
                           onClick={() => {
                             setStats("");
                             setX(0);
@@ -463,7 +464,7 @@ function App() {
                       sx={{ m: 3, color: "white" }}
                       onClick={handleSubmit}
                     >
-                      Generate maze
+                      Generate
                     </Button>
                   </motion.div>
                   <motion.div

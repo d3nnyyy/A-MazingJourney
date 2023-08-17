@@ -6,6 +6,7 @@
 }
 
 .app-container {
+  
   margin-left: 5rem;
   margin-right: 5rem; 
   display: flex;
@@ -31,10 +32,14 @@
   display: flex;
 }
 
-@media (max-width:720px) {
+
+@media (max-width:850px) {
   .app-container {
     flex-direction: column;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+  }
+  .input-container{
+    align-items: flex-start;
   }
 }
