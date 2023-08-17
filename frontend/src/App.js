@@ -315,7 +315,7 @@ function App() {
                     {showStats && (
                       <Box sx={{ display: "flex" }}>
                         <Typography>
-                          Show your path
+                          Show best path
                           <Switch
                             defaultChecked={true}
                             disabled={!showVisitedCells}
@@ -326,7 +326,7 @@ function App() {
                           />
                         </Typography>
                         <Typography>
-                          Show best path
+                          Show your path
                           <Switch
                             defaultChecked={true}
                             disabled={!showBestCells}
