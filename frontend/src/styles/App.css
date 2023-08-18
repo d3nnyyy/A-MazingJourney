@@ -40,6 +40,10 @@
     align-items: center;
   }
   .input-container{
-    align-items: flex-start;
+    margin-left: 0rem;
+    align-items: center;
+  }
+  .input-container h1 {
+    text-align: center;
   }
 }
