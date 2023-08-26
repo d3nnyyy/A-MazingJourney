@@ -25,6 +25,7 @@ Feel free to test the game at our [website](http://a-mazing-journey.s3-website.e
   - Spring Boot
   - JUnit
   - Mockito
+  - Swagger
   - AWS Elastic Beanstalk
 
   ### Algorithms: 
