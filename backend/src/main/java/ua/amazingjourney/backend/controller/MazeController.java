@@ -1,5 +1,8 @@
 package ua.amazingjourney.backend.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +43,11 @@ public class MazeController {
      * @param mazeInitializer The maze initialization parameters.
      * @return MazeResponse containing the generated maze and its shortest path.
      */
+    @Operation(summary = "Generate a maze")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Maze generated"),
+            @ApiResponse(responseCode = "500", description = "Error generating maze")
+    })
     @PostMapping("/generate")
     public ResponseEntity<?> generateMaze(@RequestBody MazeInitializer mazeInitializer) {
 
@@ -68,6 +76,11 @@ public class MazeController {
      * @param traveledPathRequest The request containing the traveled path.
      * @return The percentage of traveled path's length compared to the shortest path's length.
      */
+    @Operation(summary = "Calculate the percentage of the traveled path's length compared to the shortest path's length")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Percentage calculated"),
+            @ApiResponse(responseCode = "500", description = "Error calculating percentage")
+    })
     @PostMapping("/stats")
     public ResponseEntity<?> getStats(@RequestBody TraveledPathRequest traveledPathRequest) {
 
