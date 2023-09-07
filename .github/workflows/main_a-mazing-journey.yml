@@ -21,6 +21,9 @@ jobs:
         with:
           java-version: '17'
 
+      - name: Change working directory to backend
+        run: cd backend
+
       - name: Build with Maven
         run: mvn clean install
 
