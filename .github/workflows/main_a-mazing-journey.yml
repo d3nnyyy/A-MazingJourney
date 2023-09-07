@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: 'target/*.jar'
+          path: 'backend/target/a-mazing-journey-backend.jar'
 
 
   deploy:
