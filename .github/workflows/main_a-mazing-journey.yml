@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: 'target/*.jar'  # This path should be relative to the 'backend' directory
+          path: 'target/*.jar'
 
 
   deploy:
@@ -46,6 +46,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: java-app
+          working-directory: backend
 
       - name: List downloaded artifacts
         run: |
