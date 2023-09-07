@@ -26,13 +26,14 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn clean install -f ../pom.xml
+          cd ../backend  # Make sure we are in the 'backend' directory
+          mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '../target/*.jar'
+          path: '../backend/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -54,4 +55,4 @@ jobs:
           app-name: 'a-mazing-journey'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0EAC310B256452EAB0E469897E9AEF6 }}
-          package: 'target/*.jar'
+          package: 'backend/target/*.jar'
