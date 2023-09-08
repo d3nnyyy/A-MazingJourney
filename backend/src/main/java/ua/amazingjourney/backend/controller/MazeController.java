@@ -96,4 +96,12 @@ public class MazeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    /**
+     * Test endpoint which just return a string.
+     */
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok("Hello from backend!");
+    }
 }
