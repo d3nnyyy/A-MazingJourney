@@ -50,8 +50,7 @@ jobs:
 
       - name: List downloaded artifacts
         run: |
-          ls -R .
-        working-directory: backend/java-app
+          ls -R ./backend/java-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
