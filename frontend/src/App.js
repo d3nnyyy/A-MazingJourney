@@ -43,7 +43,7 @@ function App() {
     },
   });
 
-  const { height, width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const divRef = useRef(null)
   const dimensions = useContainerDimensions(divRef)
   const [gameStarted, setGameStarted] = useState(false);
@@ -80,13 +80,22 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance((height * 0.8) / res.data.maze.length);
+        setMoveDistance(changeMoveDistance(width)*0.8 / res.data.maze.length);
         setPlayerPos([0, 0]);
         setShowBestCells(true);
         setShowVisitedCells(true)
       })
       .catch((err) => console.log(err));
   };
+
+  const changeMoveDistance = (width) => {
+    if(width>1240) {
+      return "700"
+    }
+    else if (1024 < width < 1240){
+      return "500"
+    }
+  }
 
   const sizeMarks = [
     {
@@ -184,7 +193,7 @@ function App() {
                 sx={
                   mazeStarted
                     ? { display: "none" }
-                    : { display: "block", width: "25vw" }
+                    : { display: "block", width: width > 850 ? '25vw' : '60vw' }
                 }
               >
                 <Box sx={{ display: "flex" }}>
@@ -213,6 +222,7 @@ function App() {
                   onChange={handleSizeChange}
                   color="secondary"
                   sx={{
+                    
                     "& .MuiSlider-markLabel": {
                       color: "white",
                     },
@@ -252,7 +262,7 @@ function App() {
                     },
                     "& .MuiSlider-markLabelActive": {
                       color: "white",
-                    },
+                    }
                   }}
                 />
               </Box>
@@ -315,7 +325,7 @@ function App() {
                     {showStats && (
                       <Box sx={{ display: "flex" }}>
                         <Typography>
-                          Show your path
+                          Show best path
                           <Switch
                             defaultChecked={true}
                             disabled={!showVisitedCells}
@@ -326,7 +336,7 @@ function App() {
                           />
                         </Typography>
                         <Typography>
-                          Show best path
+                          Show your path
                           <Switch
                             defaultChecked={true}
                             disabled={!showBestCells}
@@ -389,7 +399,7 @@ function App() {
                         <Button
                           variant="contained"
                           color="secondary"
-                          sx={{ mt: 1, mb: 1, mr: 1, color: "white" }}
+                          sx={{ mt: 1, mb: 1, mr: 1, color: "white", whiteSpace:"nowrap", minWidth:"auto" }}
                           onClick={() => {
                             setStats("");
                             setX(0);
@@ -454,7 +464,7 @@ function App() {
                       sx={{ m: 3, color: "white" }}
                       onClick={handleSubmit}
                     >
-                      Generate maze
+                      Generate
                     </Button>
                   </motion.div>
                   <motion.div

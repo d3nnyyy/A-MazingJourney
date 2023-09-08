@@ -7,6 +7,8 @@ Welcome to the A-Mazing Journey! This project consists of a maze-solving game bu
 - [Website](#website)
 - [Technologies](#technologies)
 - [Local Development](#local-development)
+- [Dockerization](#dockerization)
+- [API Documentation with Swagger](#api-documentation-with-swagger)
 - [Usage](#usage)
 - [Authors](#authors)
 - [Contributing](#contributing)
@@ -23,6 +25,7 @@ Feel free to test the game at our [website](http://a-mazing-journey.s3-website.e
   - Spring Boot
   - JUnit
   - Mockito
+  - Swagger
   - AWS Elastic Beanstalk
 
   ### Algorithms: 
@@ -69,6 +72,33 @@ git clone https://github.com/d3nnyyy/A-MazingJourney.git
 3. Run `npm start` to start the development server.
 
 *Note! Dont forget to change backend url for post requests as you want to test it locally.*
+
+## Dockerization
+
+To containerize the backend Spring Boot application using Docker, follow these steps:
+
+1. Navigate to the `backend` directory of the project.
+2. Build the Docker image using the provided Dockerfile:
+   ```bash
+   docker build -t backend-image:latest .
+   ```
+3. Run the Docker container using the following command:
+   ```bash
+   docker run -p 8080:8080 backend-image:latest
+   ```
+    This will map port 8080 from the container to port 8080 on your local machine.
+
+4. Access the backend API at `http://localhost:8080`.
+
+    Make sure to customize the image name and tag according to your preferences.
+
+## API Documentation with Swagger
+
+We use Swagger to provide detailed documentation for the backend API. Swagger UI allows you to explore and interact with the API endpoints directly from a web interface.
+
+After running the backend Docker container (as explained in the Dockerization section), you can access the Swagger UI at `http://localhost:8080/swagger-ui.html`.
+
+Swagger UI provides a user-friendly way to visualize and test the API endpoints. It's a great tool for developers and testers to understand the available routes and their inputs/outputs.
 
 ## Usage
 

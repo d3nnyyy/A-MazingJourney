@@ -225,6 +225,21 @@ function Maze({
     }
   }, [isMoving]);
 
+  const changeMazeSize = (width) => {
+    if(width>1240) {
+      return "700"
+    }
+    else if (1024 < width < 1240){
+      return "500"
+    }
+    else if (480 < width < 1024){
+      return "400"
+    }
+    else if (width < 320){
+      return "300"
+    }
+  }
+
   return (
     <div className={`maze-container ${destinationReached ? "" : ""}`}>
       <div className={` ${mazeStarted ? "hidden" : "absolute-position"}`}>
@@ -253,8 +268,8 @@ function Maze({
             {row.map((cell, cellIndex) => (
               <div
                 style={{
-                  width: `${(height * 0.8) / maze.length}px`,
-                  height: `${(height * 0.8) / maze.length}px`,
+                  width: `${(changeMazeSize(width) * 0.8) / maze.length}px`,
+                  height: `${(changeMazeSize(width) * 0.8) / maze.length}px`,
                 }}
                 key={cellIndex}
                 className={`cell ${cell === true ? "wall" : "path"} ${mazeStarted ? "" : "blur"
@@ -283,8 +298,8 @@ function Maze({
                 {rowIndex === 0 && cellIndex === 0 && (
                   <motion.img
                     style={{
-                      width: `${(height * 0.65) / maze.length}px`,
-                      height: `${(height * 0.65) / maze.length}px`,
+                      width: `${(changeMazeSize(width) * 0.65) / maze.length}px`,
+                      height: `${(changeMazeSize(width) * 0.65) / maze.length}px`,
                     }}
                     className="img-spongebob"
                     initial={{ opacity: 0, scale: 0.5 }}
