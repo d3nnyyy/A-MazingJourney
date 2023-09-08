@@ -22,11 +22,6 @@ jobs:
         run: mvn clean install
         working-directory: backend
 
-      - name: List contents of target directory
-        run: |
-          ls -R target
-        working-directory: backend
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -47,10 +42,6 @@ jobs:
         with:
           name: java-app
           working-directory: backend
-
-      - name: List downloaded artifacts
-        run: |
-          ls -R ./backend/java-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
