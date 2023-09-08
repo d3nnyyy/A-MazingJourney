@@ -68,7 +68,7 @@ function App() {
   const [moveDistance, setMoveDistance] = useState(0);
 
   const handleSubmit = () => {
-    const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com";
+    const URL = "https://a-mazing-journey-backend.azurewebsites.net";
     axios
       .post(`http://${URL}/api/maze/generate`, {
         difficulty: difficulty,

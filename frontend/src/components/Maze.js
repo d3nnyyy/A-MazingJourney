@@ -42,8 +42,8 @@ function Maze({
       containsSubArray(userPath, [cell, row]) &&
       containsSubArray(bestPath, [row, cell])
     ) {
-      return (showVisited && showBest) ? "visited-best-cell" 
-      : (showVisited ? "visited-cell" : "best-cell");
+      return (showVisited && showBest) ? "visited-best-cell"
+        : (showVisited ? "visited-cell" : "best-cell");
     } else if (
       containsSubArray(userPath, [cell, row]) &&
       !containsSubArray(bestPath, [row, cell])
@@ -122,7 +122,7 @@ function Maze({
       setDestinationReached((destinationReached) => !destinationReached);
       setListenToEvents((listenToEvents) => !listenToEvents);
       setOpenModal(true);
-      const URL = "a-mazing-journey.eu-central-1.elasticbeanstalk.com";
+      const URL = "https://a-mazing-journey-backend.azurewebsites.net";
       axios
         .post(`http://${URL}/api/maze/stats`, {
           visitedCells: pathRef.current,
@@ -257,32 +257,26 @@ function Maze({
                   height: `${(height * 0.8) / maze.length}px`,
                 }}
                 key={cellIndex}
-                className={`cell ${cell === true ? "wall" : "path"} ${
-                  mazeStarted ? "" : "blur"
-                } ${
-                  rowIndex === 0 && cellIndex === 0
+                className={`cell ${cell === true ? "wall" : "path"} ${mazeStarted ? "" : "blur"
+                  } ${rowIndex === 0 && cellIndex === 0
                     ? "start rounded-top-left"
                     : ""
-                } ${
-                  rowIndex === maze.length - 1 && cellIndex === maze.length - 1
+                  } ${rowIndex === maze.length - 1 && cellIndex === maze.length - 1
                     ? "end rounded-bottom-right"
                     : ""
-                }
-                ${
-                  rowIndex === 0 && cellIndex === maze.length - 1
+                  }
+                ${rowIndex === 0 && cellIndex === maze.length - 1
                     ? "rounded-top-right"
                     : ""
-                }
-                ${
-                  rowIndex === maze.length - 1 && cellIndex === 0
+                  }
+                ${rowIndex === maze.length - 1 && cellIndex === 0
                     ? "rounded-bottom-left"
                     : ""
-                }
-                ${
-                  showStats
+                  }
+                ${showStats
                     ? cellStyleCheck(cellIndex, rowIndex, path, shortestPath, showVisitedCells, showBestCells)
                     : ""
-                }
+                  }
 
                 `}
               >
