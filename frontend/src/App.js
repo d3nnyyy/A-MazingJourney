@@ -68,7 +68,7 @@ function App() {
   const [moveDistance, setMoveDistance] = useState(0);
 
   const handleSubmit = () => {
-    const URL = "https://a-mazing-journey-backend.azurewebsites.net";
+    const URL = "a-mazing-journey-backend.azurewebsites.net";
     axios
       .post(`http://${URL}/api/maze/generate`, {
         difficulty: difficulty,
@@ -80,7 +80,7 @@ function App() {
         setStats("");
         setX(0);
         setY(0);
-        setMoveDistance(changeMoveDistance(width)*0.8 / res.data.maze.length);
+        setMoveDistance(changeMoveDistance(width) * 0.8 / res.data.maze.length);
         setPlayerPos([0, 0]);
         setShowBestCells(true);
         setShowVisitedCells(true)
@@ -89,10 +89,10 @@ function App() {
   };
 
   const changeMoveDistance = (width) => {
-    if(width>1240) {
+    if (width > 1240) {
       return "700"
     }
-    else if (1024 < width < 1240){
+    else if (1024 < width < 1240) {
       return "500"
     }
   }
@@ -222,7 +222,7 @@ function App() {
                   onChange={handleSizeChange}
                   color="secondary"
                   sx={{
-                    
+
                     "& .MuiSlider-markLabel": {
                       color: "white",
                     },
@@ -399,7 +399,7 @@ function App() {
                         <Button
                           variant="contained"
                           color="secondary"
-                          sx={{ mt: 1, mb: 1, mr: 1, color: "white", whiteSpace:"nowrap", minWidth:"auto" }}
+                          sx={{ mt: 1, mb: 1, mr: 1, color: "white", whiteSpace: "nowrap", minWidth: "auto" }}
                           onClick={() => {
                             setStats("");
                             setX(0);

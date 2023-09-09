@@ -122,7 +122,7 @@ function Maze({
       setDestinationReached((destinationReached) => !destinationReached);
       setListenToEvents((listenToEvents) => !listenToEvents);
       setOpenModal(true);
-      const URL = "https://a-mazing-journey-backend.azurewebsites.net";
+      const URL = "a-mazing-journey-backend.azurewebsites.net";
       axios
         .post(`http://${URL}/api/maze/stats`, {
           visitedCells: pathRef.current,
@@ -226,16 +226,16 @@ function Maze({
   }, [isMoving]);
 
   const changeMazeSize = (width) => {
-    if(width>1240) {
+    if (width > 1240) {
       return "700"
     }
-    else if (1024 < width < 1240){
+    else if (1024 < width < 1240) {
       return "500"
     }
-    else if (480 < width < 1024){
+    else if (480 < width < 1024) {
       return "400"
     }
-    else if (width < 320){
+    else if (width < 320) {
       return "300"
     }
   }
