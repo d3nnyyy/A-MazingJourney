@@ -70,7 +70,7 @@ function App() {
   const handleSubmit = () => {
     const URL = "a-mazing-journey-backend.azurewebsites.net";
     axios
-      .post(`http://${URL}/api/maze/generate`, {
+      .post(`https://${URL}/api/maze/generate`, {
         difficulty: difficulty,
         size: size,
       })

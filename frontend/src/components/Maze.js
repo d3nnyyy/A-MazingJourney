@@ -124,7 +124,7 @@ function Maze({
       setOpenModal(true);
       const URL = "a-mazing-journey-backend.azurewebsites.net";
       axios
-        .post(`http://${URL}/api/maze/stats`, {
+        .post(`https://${URL}/api/maze/stats`, {
           visitedCells: pathRef.current,
         })
         .then((res) => {
