@@ -11,7 +11,7 @@ function Start({ setGameStarted }) {
       <h1>A-Mazing Journey</h1>
       <p>
         About A-Mazing Journey: Maze-solving game with a Spring Boot backend and
-        React frontend, deployed on AWS. Experience pathfinding challenges while
+        React frontend, deployed on Azure. Experience pathfinding challenges while
         visualizing optimal routes.
       </p>
       <motion.div
