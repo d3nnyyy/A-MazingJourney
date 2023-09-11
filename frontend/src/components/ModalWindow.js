@@ -27,8 +27,6 @@ function ModalWindow({
     setShowStats(false);
   };
 
-  // const handleClose = () => setOpenModal(false);
-
   const style = {
     position: "absolute",
     top: "50%",
@@ -45,7 +43,6 @@ function ModalWindow({
   return (
     <Modal
       open={open}
-      // onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
