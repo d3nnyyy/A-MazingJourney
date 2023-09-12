@@ -130,7 +130,7 @@ function App() {
       "I've managed to solve the maze with the shortest path. Could you do it? " :
       `I've managed to solve the maze with the path which is ${percentageDifference}% longer than the shortest. I bet you could do it better! `
 
-    const message = subMessage + "Try it out at http://a-mazing-journey.s3-website.eu-central-1.amazonaws.com/";
+    const message = subMessage + "Try it out at https://a-mazing-journey.azurewebsites.net/";
     const encodedMessage = encodeURIComponent(message);
     const telegramShareLink = `https://t.me/share/url?url=${encodedMessage}`;
 
