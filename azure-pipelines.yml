@@ -13,12 +13,11 @@ jobs:
 
   - task: NodeTool@0
     inputs:
-      versionSpec: '10.x'
+      versionSpec: '18.x'
     displayName: 'Install Node.js'
 
   - script: |
-      cd frontend  # Change to the frontend directory
+      cd frontend
       npm install
-      npm cache clean --force
       npm run build
     displayName: 'npm install and build'
