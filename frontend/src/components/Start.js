@@ -8,7 +8,7 @@ function Start({ setGameStarted }) {
 
   return (
     <div className="start-container">
-      <h1>A-Mazing Journey</h1>
+      <h1>A-Mazing Journey test</h1>
       <p>
         About A-Mazing Journey: Maze-solving game with a Spring Boot backend and
         React frontend, deployed on Microsoft Azure. Experience pathfinding challenges while
