@@ -19,5 +19,6 @@ jobs:
   - script: |
       cd frontend  # Change to the frontend directory
       npm install
+      npm cache clean --force
       npm run build
     displayName: 'npm install and build'
