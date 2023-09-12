@@ -1,4 +1,4 @@
-name: Build and deploy JAR app to Azure Web App - a-mazing-journey
+name: Build and deploy JAR app to Azure Web App - a-mazing-journey-backend
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'a-mazing-journey'
+          app-name: 'a-mazing-journey-backend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0EAC310B256452EAB0E469897E9AEF6 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_12EF4EE9C6C641EFA72D001B30FB92ED }}
           package: '*.jar'
