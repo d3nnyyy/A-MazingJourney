@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: FrontendBuild
+  displayName: 'Build Frontend'
+  steps:
+  - checkout: self
+    path: frontend
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      cd frontend  # Change to the frontend directory
+      npm install
+      npm run build
+    displayName: 'npm install and build'
