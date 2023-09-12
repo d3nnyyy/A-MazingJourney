@@ -97,8 +97,4 @@ public class MazeController {
         }
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<?> test() {
-        return ResponseEntity.ok("Test endpoint");
-    }
 }
