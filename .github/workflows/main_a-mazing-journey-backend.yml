@@ -2,6 +2,8 @@ name: Build and deploy JAR app to Azure Web App - a-mazing-journey-backend
 
 on:
   push:
+    paths:
+      - 'backend/**'
     branches:
       - main
   workflow_dispatch:
