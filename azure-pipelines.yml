@@ -21,3 +21,6 @@ jobs:
       npm install
       npm run build
     displayName: 'npm install and build'
+
+  - publish: $(System.DefaultWorkingDirectory)/frontend/build
+    artifact: frontend-artifact
