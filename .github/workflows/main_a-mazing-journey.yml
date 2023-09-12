@@ -51,5 +51,5 @@ jobs:
         with:
           app-name: 'a-mazing-journey'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_203EB9D0C6734D179760A76FB2074779 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0A53F83149F24EAA8571D1345F13F1DC }}
           package: '*.jar'
