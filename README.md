@@ -1,6 +1,6 @@
 # A-Mazing Journey
 
-Welcome to the A-Mazing Journey! This project consists of a maze-solving game built with Spring Boot for the backend and React for the frontend. Players can navigate through a maze to reach the destination while visualizing their path and the optimal path. The project is deployed on Amazon Web Service ( AWS Elastic Beanstalk for backend and AWS S3 for frontend. Moreover, it manages continuous integration and deployment (CI/CD) using AWS CodePipeline and AWS CodeBuild.
+Welcome to the A-Mazing Journey! This project consists of a maze-solving game built with Spring Boot for the backend and React for the frontend. Players can navigate through a maze to reach the destination while visualizing their path and the optimal path. The project is deployed on Microsoft Azure, with Azure App Services for both the backend and frontend. Additionally, it manages continuous integration and deployment (CI/CD) using GitHub Actions for the backend and Azure DevOps Pipelines for the frontend.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ Welcome to the A-Mazing Journey! This project consists of a maze-solving game bu
 
 ## Website
 
-Feel free to test the game at our [website](http://a-mazing-journey.s3-website.eu-central-1.amazonaws.com/)
+Feel free to test the game at our [website](https://a-mazing-journey.azurewebsites.net/)
 
 ## Technologies
 
@@ -26,7 +26,7 @@ Feel free to test the game at our [website](http://a-mazing-journey.s3-website.e
   - JUnit
   - Mockito
   - Swagger
-  - AWS Elastic Beanstalk
+  - Azure App Services
 
   ### Algorithms: 
 
@@ -46,8 +46,8 @@ Feel free to test the game at our [website](http://a-mazing-journey.s3-website.e
 
   ### Continuous Integration and Deployment (CI/CD)
 
-  - AWS CodePipeline
-  - AWS CodeBuild
+  - GitHub Actions (Backend)
+  - Azure DevOps Pipelines (Frontend)
 
 ## Local Development
 
