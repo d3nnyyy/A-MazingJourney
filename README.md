@@ -113,3 +113,4 @@ You can access the A-Mazing Journey game through the provided URL. You can inter
 ## Contributing
 
 If you're interested in contributing to A-Mazing Journey, feel free to submit pull requests or issues on our GitHub repository. We welcome your feedback and contributions to enhance the game.
+
